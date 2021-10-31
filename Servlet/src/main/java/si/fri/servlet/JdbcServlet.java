@@ -41,16 +41,16 @@ public class JdbcServlet extends HttpServlet {
         resp.getWriter().printf("Dodamo nekaj vnosov v podatkovno bazo<br/>");
         printUporabniki(uporabnikDao, resp);
 
-        uporabnikDao.odstrani(88);
+        uporabnikDao.odstrani(1);
         resp.getWriter().printf("Odstranimo enega uporabnika<br/>");
         printUporabniki(uporabnikDao, resp);
 
-        Uporabnik updateUser = (Uporabnik) uporabnikDao.vrni(89);
+        Uporabnik updateUser = (Uporabnik) uporabnikDao.vrni(2);
         updateUser.setUporabniskoIme("JD");
         resp.getWriter().printf("Izpise posodobljenega uporabnika:<br/>%d %s %s %s<br/><br/>", updateUser.getId(), updateUser.getIme(), updateUser.getPriimek(), updateUser.getUporabniskoIme());
         uporabnikDao.posodobi(updateUser);
 
-        Uporabnik returnedUser = (Uporabnik) uporabnikDao.vrni(90);
+        Uporabnik returnedUser = (Uporabnik) uporabnikDao.vrni(3);
         resp.getWriter().printf("Izpise samo vrnjenega uporabnika:<br/>%d %s %s %s<br/><br/>", returnedUser.getId(), returnedUser.getIme(), returnedUser.getPriimek(), returnedUser.getUporabniskoIme());
     }
 
