@@ -17,8 +17,8 @@ public class Rezervacija {
     private Timestamp polnjenje_konec;
 
 
-    @ManyToOne
-    @JoinColumn(name = "id_polnilna_postaja")
+    @ManyToOne //opredelimo relacijo - isti atribut id_polnilna_postaja je lahko v vec instancah entitete rezervacija
+    @JoinColumn(name = "id_polnilna_postaja") //entiteti rezervacija dodamo column id_polnilna postaja
     private PolnilnaPostaja polnilnaPostaja;
 
     @ManyToOne
