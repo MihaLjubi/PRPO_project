@@ -1,10 +1,12 @@
+package si.fri.prpo.polnilnice.entitete;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 
 @Entity(name = "rezervacija")
 @NamedQueries(value =
         {
-                @NamedQuery(name = "Rezervacija.getAll", query = "SELECT r FROM rezervacija r")
+                @NamedQuery(name = "si.fri.prpo.polnilnice.entitete.Rezervacija.getAll", query = "SELECT r FROM rezervacija r")
         })
 public class Rezervacija {
 

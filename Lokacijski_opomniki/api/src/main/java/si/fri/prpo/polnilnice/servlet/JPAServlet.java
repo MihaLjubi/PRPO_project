@@ -1,3 +1,8 @@
+package si.fri.prpo.polnilnice.servlet;
+
+import si.fri.prpo.polnilnice.entitete.Uporabnik;
+import si.fri.prpo.polnilnice.zrna.UporabnikZrno;
+
 import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

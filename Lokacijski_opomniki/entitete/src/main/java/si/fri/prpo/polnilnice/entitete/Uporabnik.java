@@ -1,3 +1,5 @@
+package si.fri.prpo.polnilnice.entitete;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -5,7 +7,7 @@ import java.util.List;
 @Entity(name = "uporabnik")
 @NamedQueries(value =
         {
-                @NamedQuery(name = "Uporabnik.getAll", query = "SELECT u FROM uporabnik u")
+                @NamedQuery(name = "si.fri.prpo.polnilnice.entitete.Uporabnik.getAll", query = "SELECT u FROM uporabnik u")
         })
 public class Uporabnik {
 

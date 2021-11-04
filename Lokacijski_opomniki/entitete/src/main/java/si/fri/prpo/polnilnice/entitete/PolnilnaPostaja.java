@@ -1,3 +1,5 @@
+package si.fri.prpo.polnilnice.entitete;
+
 import javax.persistence.*;
 import java.sql.Time;
 import java.util.ArrayList;
@@ -11,7 +13,7 @@ enum Status {
 @Entity(name = "polnilnaPostaja")
 @NamedQueries(value =
         {
-                @NamedQuery(name = "PolnilnaPostaja.getAll", query = "SELECT pp FROM polnilnaPostaja pp")
+                @NamedQuery(name = "si.fri.prpo.polnilnice.entitete.PolnilnaPostaja.getAll", query = "SELECT pp FROM polnilnaPostaja pp")
         })
 public class PolnilnaPostaja {
 

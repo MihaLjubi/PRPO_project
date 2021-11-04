@@ -1,3 +1,6 @@
+package si.fri.prpo.polnilnice.zrna;
+
+import si.fri.prpo.polnilnice.entitete.Uporabnik;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.persistence.EntityManager;
