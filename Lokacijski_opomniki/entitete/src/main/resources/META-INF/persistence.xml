@@ -3,9 +3,9 @@
     <persistence-unit name="elektricne-polnilnice-jpa" transaction-type="JTA">
         <jta-data-source>elektricnePolnilnice@localhost</jta-data-source>
 
-        <class>PolnilnaPostaja</class>
-        <class>Rezervacija</class>
-        <class>Uporabnik</class>
+        <class>si.fri.prpo.polnilnice.entitete.PolnilnaPostaja</class>
+        <class>si.fri.prpo.polnilnice.entitete.Rezervacija</class>
+        <class>si.fri.prpo.polnilnice.entitete.Uporabnik</class>
 
         <properties>
             <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
