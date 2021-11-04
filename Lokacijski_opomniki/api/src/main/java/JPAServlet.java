@@ -11,12 +11,14 @@ import java.io.IOException;
 public class JPAServlet extends HttpServlet {
 
     @Inject
-    // private UporabnikiZrno uporabnikiZrno;
+    private UporabnikZrno uporabnikZrno;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        // List<Uporabnik> uporabniki = uporabnikiZrno.getUporabniki());
+        List<Uporabnik> uporabniki = uporabnikZrno.getUporabniki();
+
+        resp.getWriter().printf("<p>UGA BUGA STRAN CELO DELA</p>");
 
         // izpis uporabnikov na spletno stran
 

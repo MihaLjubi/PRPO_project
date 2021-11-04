@@ -1,4 +1,6 @@
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity(name = "uporabnik")
 @NamedQueries(value =
@@ -21,10 +23,9 @@ public class Uporabnik {
                 return id_uporabnik;
         }
 
-        @OneToMany
+        @OneToMany(mappedBy = "Uporabnik", cascade = CascadeType.ALL, orphanRemoval = true)
         @JoinColumn(name = "id_rezervacija")
-        // TODO 'One To Many' attribute type should be a container ERROR
-        private Rezervacija rezervacija;
+        private List<Rezervacija> comments = new ArrayList<>();
 
         public void setId_uporabnik(Integer id_uporabnik) {
                 this.id_uporabnik = id_uporabnik;
@@ -54,11 +55,11 @@ public class Uporabnik {
                 this.uporabnisko_ime = uporabnisko_ime;
         }
 
-        public Rezervacija getRezervacija() {
-                return rezervacija;
+        public List<Rezervacija> getComments() {
+                return comments;
         }
 
-        public void setRezervacija(Rezervacija rezervacija) {
-                this.rezervacija = rezervacija;
+        public void setComments(List<Rezervacija> comments) {
+                this.comments = comments;
         }
 }

@@ -1,5 +1,7 @@
 import javax.persistence.*;
 import java.sql.Time;
+import java.util.ArrayList;
+import java.util.List;
 
 enum Status {
     ACTIVE,
@@ -27,10 +29,9 @@ public class PolnilnaPostaja {
 
     private Integer cena;
 
-    @OneToMany
+    @OneToMany(mappedBy = "PolnilnaPostaja", cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "id_rezervacija")
-    // TODO 'One To Many' attribute type should be a container ERROR
-    private Rezervacija rezervacija;
+    private List<Rezervacija> comments = new ArrayList<>();
 
     public Integer getId_polnilna_postaja() {
         return id_polnilna_postaja;
@@ -80,11 +81,11 @@ public class PolnilnaPostaja {
         this.cena = cena;
     }
 
-    public Rezervacija getRezervacija() {
-        return rezervacija;
+    public List<Rezervacija> getComments() {
+        return comments;
     }
 
-    public void setRezervacija(Rezervacija rezervacija) {
-        this.rezervacija = rezervacija;
+    public void setComments(List<Rezervacija> comments) {
+        this.comments = comments;
     }
 }
