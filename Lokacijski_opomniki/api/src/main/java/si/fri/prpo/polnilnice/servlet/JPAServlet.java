@@ -24,6 +24,7 @@ public class JPAServlet extends HttpServlet {
         List<Uporabnik> uporabniki = uporabnikZrno.getUporabniki();
         List<Uporabnik> userbyname = uporabnikZrno.getByUsername("doubleO7");
         List<Uporabnik> userbyid = uporabnikZrno.getById(00001);
+        List<Uporabnik> usersCrit = uporabnikZrno.getUporabnikiCriteria();
 
         resp.getWriter().printf("<p>");
         resp.getWriter().printf("Uporabniki:");
@@ -38,6 +39,11 @@ public class JPAServlet extends HttpServlet {
         resp.getWriter().printf("<br>");
         resp.getWriter().printf("ById:");
         for(Uporabnik user : userbyid){
+            resp.getWriter().printf("%s", user.getUporabnisko_ime() + " ");
+        }
+        resp.getWriter().printf("<br>");
+        resp.getWriter().printf("users with criteria:");
+        for(Uporabnik user : usersCrit){
             resp.getWriter().printf("%s", user.getUporabnisko_ime() + " ");
         }
         resp.getWriter().printf("</p>");

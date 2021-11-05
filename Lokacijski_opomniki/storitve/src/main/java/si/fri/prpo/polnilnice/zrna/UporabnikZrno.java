@@ -47,43 +47,13 @@ public class UporabnikZrno {
         return results;
 
     }
-    /*
     //test
-    CriteriaBuilder cbt = em.getCriteriaBuilder();
-    CriteriaQuery<Uporabnik> q = cbt.createQuery(Uporabnik.class);
-    //jpa criteria api metode
-    CriteriaBuilder cb = em.getCriteriaBuilder();
-    CriteriaQuery<Uporabnik> q = cb.createQuery(Uporabnik.class);
-    Root<Uporabnik> u = q.from(Uporabnik.class);
-    q.select(u);
+    public List<Uporabnik> getUporabnikiCriteria() {
+        CriteriaBuilder cbt = em.getCriteriaBuilder();
+        CriteriaQuery<Uporabnik> q = cbt.createQuery(Uporabnik.class);
+        Root<Uporabnik> root = q.from(Uporabnik.class);
+        List<Uporabnik> rez = em.createQuery(q).getResultList();
 
-    TypedQuery<Uporabnik> query = em.createQuery(q);
-    List<Uporabnik> vsiUporabniki = query.getResultList();
-
-    //izpisi rezervacije
-    CriteriaBuilder cb1 = em.getCriteriaBuilder();
-    CriteriaQuery<Rezervacija> q1 = cb1.createQuery(Rezervacija.class);
-    Root<Rezervacija> r = q1.from(Rezervacija.class);
-    q.select(r);
-
-    TypedQuery<Rezervacija> query1 = em.createQuery(q1);
-    List<Rezervacija> vseRezervacije = query1.getResultList();
-
-    //izpisi polnilne postaje
-    CriteriaBuilder cb2 = em.getCriteriaBuilder();
-    CriteriaQuery<PolnilnaPostaja> q2 = cb2.createQuery(PolnilnaPostaja.class);
-    Root<PolnilnaPostaja> p = q2.from(PolnilnaPostaja.class);
-    q.select(p);
-
-    TypedQuery<PolnilnaPostaja> query2 = em.createQuery(q2);
-    List<PolnilnaPostaja> vsePostaje = query2.getResultList();
-
-    //zdruzi sezname in vrni - verjetno kot tabelo al neki vec query roots in join en query
-    public List<List> izpisiVse() {
-
-        // implementacija
-
-        return null;
-
-    } */
+        return rez;
+    }
 }
