@@ -22,9 +22,25 @@ public class JPAServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         List<Uporabnik> uporabniki = uporabnikZrno.getUporabniki();
+        List<Uporabnik> userbyname = uporabnikZrno.getByUsername("doubleO7");
+        List<Uporabnik> userbyid = uporabnikZrno.getById(00001);
 
-        resp.getWriter().printf("<p>UGA BUGA STRAN CELO DELA</p>");
-
+        resp.getWriter().printf("<p>");
+        resp.getWriter().printf("Uporabniki:");
+        for(Uporabnik user : uporabniki){
+            resp.getWriter().printf(user.getUporabnisko_ime() + " ");
+        }
+        resp.getWriter().printf("<br>");
+        resp.getWriter().printf("Byusername:");
+        for(Uporabnik user : userbyname){
+            resp.getWriter().printf(user.getUporabnisko_ime() + " ");
+        }
+        resp.getWriter().printf("<br>");
+        resp.getWriter().printf("ById:");
+        for(Uporabnik user : userbyid){
+            resp.getWriter().printf("%s", user.getUporabnisko_ime() + " ");
+        }
+        resp.getWriter().printf("</p>");
         // izpis uporabnikov na spletno stran
 
     }

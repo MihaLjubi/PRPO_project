@@ -7,7 +7,9 @@ import java.util.List;
 @Entity(name = "uporabnik")
 @NamedQueries(value =
         {
-                @NamedQuery(name = "si.fri.prpo.polnilnice.entitete.Uporabnik.getAll", query = "SELECT u FROM uporabnik u")
+                @NamedQuery(name = "Uporabnik.getAll", query = "SELECT u FROM uporabnik u"),
+                @NamedQuery(name = "Uporabnik.getByUsername", query = "SELECT u FROM uporabnik u WHERE u.uporabnisko_ime = :username"),
+                @NamedQuery(name = "Uporabnik.getById", query = "SELECT u FROM uporabnik u WHERE u.id_uporabnik = :id")
         })
 public class Uporabnik {
 
