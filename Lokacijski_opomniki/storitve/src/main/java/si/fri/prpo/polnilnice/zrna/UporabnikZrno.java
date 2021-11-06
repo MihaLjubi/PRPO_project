@@ -47,7 +47,17 @@ public class UporabnikZrno {
         return results;
 
     }
-    //test
+
+    public List<Uporabnik> getBySurname(String surname) {
+
+        TypedQuery<Uporabnik> query = em.createNamedQuery("Uporabnik.getBySurname", Uporabnik.class);
+        query.setParameter("surname", surname);
+        List<Uporabnik> results = query.getResultList();
+
+        return results;
+
+    }
+
     public List<Uporabnik> getUporabnikiCriteria() {
         CriteriaBuilder cbt = em.getCriteriaBuilder();
         CriteriaQuery<Uporabnik> q = cbt.createQuery(Uporabnik.class);

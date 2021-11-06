@@ -8,8 +8,9 @@ import java.util.List;
 @NamedQueries(value =
         {
                 @NamedQuery(name = "Uporabnik.getAll", query = "SELECT u FROM uporabnik u"),
+                @NamedQuery(name = "Uporabnik.getById", query = "SELECT u FROM uporabnik u WHERE u.id_uporabnik = :id"),
                 @NamedQuery(name = "Uporabnik.getByUsername", query = "SELECT u FROM uporabnik u WHERE u.uporabnisko_ime = :username"),
-                @NamedQuery(name = "Uporabnik.getById", query = "SELECT u FROM uporabnik u WHERE u.id_uporabnik = :id")
+                @NamedQuery(name = "Uporabnik.getBySurname", query = "SELECT u FROM uporabnik u WHERE u.priimek = :surname")
         })
 public class Uporabnik {
 

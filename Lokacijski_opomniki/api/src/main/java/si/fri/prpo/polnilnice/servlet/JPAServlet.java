@@ -24,29 +24,39 @@ public class JPAServlet extends HttpServlet {
         List<Uporabnik> uporabniki = uporabnikZrno.getUporabniki();
         List<Uporabnik> userbyname = uporabnikZrno.getByUsername("doubleO7");
         List<Uporabnik> userbyid = uporabnikZrno.getById(00001);
+        List<Uporabnik> userbysurname = uporabnikZrno.getBySurname("Teden");
         List<Uporabnik> usersCrit = uporabnikZrno.getUporabnikiCriteria();
 
-        resp.getWriter().printf("<p>");
-        resp.getWriter().printf("Uporabniki:");
+        String format = "%s\t%s\t%s\n";
+
+        resp.getWriter().printf("Uporabniki:\n");
         for(Uporabnik user : uporabniki){
-            resp.getWriter().printf(user.getUporabnisko_ime() + " ");
+            resp.getWriter().printf(format, user.getIme(), user.getPriimek(), user.getUporabnisko_ime());
         }
-        resp.getWriter().printf("<br>");
-        resp.getWriter().printf("Byusername:");
-        for(Uporabnik user : userbyname){
-            resp.getWriter().printf(user.getUporabnisko_ime() + " ");
-        }
-        resp.getWriter().printf("<br>");
-        resp.getWriter().printf("ById:");
+        resp.getWriter().printf("\n");
+
+        resp.getWriter().printf("ById:\n");
         for(Uporabnik user : userbyid){
-            resp.getWriter().printf("%s", user.getUporabnisko_ime() + " ");
+            resp.getWriter().printf(format, user.getIme(), user.getPriimek(), user.getUporabnisko_ime());
         }
-        resp.getWriter().printf("<br>");
-        resp.getWriter().printf("users with criteria:");
+        resp.getWriter().printf("\n");
+
+        resp.getWriter().printf("ByUsername:\n");
+        for(Uporabnik user : userbyname){
+            resp.getWriter().printf(format, user.getIme(), user.getPriimek(), user.getUporabnisko_ime());
+        }
+        resp.getWriter().printf("\n");
+
+        resp.getWriter().printf("BySurname:\n");
+        for(Uporabnik user : userbysurname){
+            resp.getWriter().printf(format, user.getIme(), user.getPriimek(), user.getUporabnisko_ime());
+        }
+        resp.getWriter().printf("\n");
+
+        resp.getWriter().printf("users with criteria:\n");
         for(Uporabnik user : usersCrit){
-            resp.getWriter().printf("%s", user.getUporabnisko_ime() + " ");
+            resp.getWriter().printf(format, user.getIme(), user.getPriimek(), user.getUporabnisko_ime());
         }
-        resp.getWriter().printf("</p>");
         // izpis uporabnikov na spletno stran
 
     }
