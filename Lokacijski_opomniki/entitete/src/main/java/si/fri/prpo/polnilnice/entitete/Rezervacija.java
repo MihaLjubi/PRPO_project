@@ -6,7 +6,10 @@ import java.sql.Timestamp;
 @Entity(name = "rezervacija")
 @NamedQueries(value =
         {
-                @NamedQuery(name = "si.fri.prpo.polnilnice.entitete.Rezervacija.getAll", query = "SELECT r FROM rezervacija r")
+                @NamedQuery(name = "Rezervacija.getAll", query = "SELECT r FROM rezervacija r"),
+                @NamedQuery(name = "Rezervacija.getById", query = "SELECT r FROM rezervacija r WHERE r.id_rezervacija = :id"),
+                @NamedQuery(name = "Rezervacija.getByChargingStart", query = "SELECT r FROM rezervacija r WHERE r.polnjenje_zacetek = :chargingStart"),
+                @NamedQuery(name = "Rezervacija.getByChargingEnd", query = "SELECT r FROM rezervacija r WHERE r.polnjenje_konec = :chargingEnd")
         })
 public class Rezervacija {
 

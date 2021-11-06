@@ -13,7 +13,10 @@ enum Status {
 @Entity(name = "polnilnaPostaja")
 @NamedQueries(value =
         {
-                @NamedQuery(name = "si.fri.prpo.polnilnice.entitete.PolnilnaPostaja.getAll", query = "SELECT pp FROM polnilnaPostaja pp")
+                @NamedQuery(name = "PolnilnaPostaja.getAll", query = "SELECT pp FROM polnilnaPostaja pp"),
+                @NamedQuery(name = "PolnilnaPostaja.getById", query = "SELECT pp FROM polnilnaPostaja pp WHERE pp.id_polnilna_postaja = :id"),
+                @NamedQuery(name = "PolnilnaPostaja.getByLocation", query = "SELECT pp FROM polnilnaPostaja pp WHERE pp.lokacija = :location"),
+                @NamedQuery(name = "PolnilnaPostaja.getByStatus", query = "SELECT pp FROM polnilnaPostaja pp WHERE pp.status = :status")
         })
 public class PolnilnaPostaja {
 
