@@ -26,10 +26,6 @@
             <groupId>si.fri.prpo.lokacijskiopomniki</groupId>
             <artifactId>storitve</artifactId>
         </dependency>
-        <dependency>
-            <groupId>si.fri.prpo.lokacijskiopomniki</groupId>
-            <artifactId>entitete</artifactId>
-        </dependency>
     </dependencies>
 
     <properties>
