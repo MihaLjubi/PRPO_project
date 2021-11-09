@@ -10,7 +10,7 @@ import java.util.List;
                 @NamedQuery(name = "Uporabnik.getAll", query = "SELECT u FROM uporabnik u"),
                 @NamedQuery(name = "Uporabnik.getById", query = "SELECT u FROM uporabnik u WHERE u.id_uporabnik = :id"),
                 @NamedQuery(name = "Uporabnik.getByUsername", query = "SELECT u FROM uporabnik u WHERE u.uporabnisko_ime = :username"),
-                @NamedQuery(name = "Uporabnik.getBySurname", query = "SELECT u FROM uporabnik u WHERE u.priimek = :surname")
+                @NamedQuery(name = "Uporabnik.getBySurname", query = "SELECT u FROM uporabnik u WHERE u.priimek = :surname"),
         })
 public class Uporabnik {
 
@@ -24,13 +24,13 @@ public class Uporabnik {
 
         private String uporabnisko_ime;
 
-        public Integer getId_uporabnik() {
-                return id_uporabnik;
-        }
-
         @OneToMany(mappedBy = "Uporabnik", cascade = CascadeType.ALL, orphanRemoval = true)
         @JoinColumn(name = "id_rezervacija")
         private List<Rezervacija> comments = new ArrayList<>();
+
+        public Integer getId_uporabnik() {
+                return id_uporabnik;
+        }
 
         public void setId_uporabnik(Integer id_uporabnik) {
                 this.id_uporabnik = id_uporabnik;

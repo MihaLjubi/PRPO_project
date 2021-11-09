@@ -21,10 +21,21 @@ public class JPAServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
+        Uporabnik test = new Uporabnik();
+        test.setIme("Cene");
+        test.setPriimek("Brzina");
+        test.setUporabnisko_ime("iAmSpeed");
+
+        uporabnikZrno.createUser(test);
         List<Uporabnik> uporabniki = uporabnikZrno.getUporabniki();
         List<Uporabnik> userbyname = uporabnikZrno.getByUsername("doubleO7");
-        List<Uporabnik> userbyid = uporabnikZrno.getById(00001);
+        Uporabnik userbyid = uporabnikZrno.getById(101);
         List<Uporabnik> userbysurname = uporabnikZrno.getBySurname("Teden");
+        uporabnikZrno.deleteUser(102);
+        test.setIme("Brzomir");
+        userbyid.setIme("Rok");
+        uporabnikZrno.updateUser(userbyid);
+        uporabnikZrno.updateUser(test);
         List<Uporabnik> usersCrit = uporabnikZrno.getUporabnikiCriteria();
 
         String format = "%s\t%s\t%s\n";
@@ -36,9 +47,7 @@ public class JPAServlet extends HttpServlet {
         resp.getWriter().printf("\n");
 
         resp.getWriter().printf("ById:\n");
-        for(Uporabnik user : userbyid){
-            resp.getWriter().printf(format, user.getIme(), user.getPriimek(), user.getUporabnisko_ime());
-        }
+        resp.getWriter().printf(format, userbyid.getIme(), userbyid.getPriimek(), userbyid.getUporabnisko_ime());
         resp.getWriter().printf("\n");
 
         resp.getWriter().printf("ByUsername:\n");
