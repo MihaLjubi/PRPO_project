@@ -14,9 +14,9 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="api" options="--add-modules java.base" />
-      <module name="entitete" options="--add-modules java.base" />
-      <module name="storitve" options="--add-modules java.base" />
+      <module name="api" options="--add-modules java.base,java.sql" />
+      <module name="entitete" options="--add-modules java.base,java.sql" />
+      <module name="storitve" options="--add-modules java.base,java.sql" />
     </option>
   </component>
 </project>

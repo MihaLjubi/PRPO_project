@@ -5,11 +5,6 @@ import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 
-enum Status {
-    ACTIVE,
-    DISABLED
-}
-
 @Entity(name = "polnilnaPostaja")
 @NamedQueries(value =
         {
@@ -19,6 +14,11 @@ enum Status {
                 @NamedQuery(name = "PolnilnaPostaja.getByStatus", query = "SELECT pp FROM polnilnaPostaja pp WHERE pp.status = :status")
         })
 public class PolnilnaPostaja {
+
+    public enum Status {
+        ACTIVE,
+        DISABLED
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
