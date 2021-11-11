@@ -16,7 +16,7 @@
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="api" options="--add-modules java.base,java.sql" />
       <module name="entitete" options="--add-modules java.base,java.sql" />
-      <module name="storitve" options="--add-modules java.base,java.sql" />
+      <module name="storitve" options="--add-modules java.base,java.sql,java.logging" />
     </option>
   </component>
 </project>
