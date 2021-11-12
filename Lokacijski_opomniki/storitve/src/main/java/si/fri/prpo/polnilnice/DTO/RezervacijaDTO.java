@@ -10,6 +10,7 @@ public class RezervacijaDTO extends BaseDTO{
     private PolnilnaPostaja polnilnaPostaja;
     private Timestamp polnjenjeZacetek;
     private Timestamp polnjenjeKonec;
+    private Integer cena;
 
     @Override
     public boolean validate(){
@@ -49,4 +50,9 @@ public class RezervacijaDTO extends BaseDTO{
     public void setPolnjenjeKonec(Timestamp polnjenjeKonec) {
         this.polnjenjeKonec = polnjenjeKonec;
     }
+
+    public Integer getCena() { return cena; }
+
+    public void setCena(Integer cena) { this.cena = cena; }
+
 }
