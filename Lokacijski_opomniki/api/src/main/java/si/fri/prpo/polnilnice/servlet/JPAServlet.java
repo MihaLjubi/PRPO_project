@@ -1,7 +1,9 @@
 package si.fri.prpo.polnilnice.servlet;
 
+import si.fri.prpo.polnilnice.entitete.Racun;
 import si.fri.prpo.polnilnice.entitete.Rezervacija;
 import si.fri.prpo.polnilnice.entitete.Uporabnik;
+import si.fri.prpo.polnilnice.zrna.RacunZrno;
 import si.fri.prpo.polnilnice.zrna.RezervacijaZrno;
 import si.fri.prpo.polnilnice.zrna.UporabnikZrno;
 import si.fri.prpo.polnilnice.entitete.PolnilnaPostaja;
@@ -31,6 +33,8 @@ public class JPAServlet extends HttpServlet {
     @Inject
     private RezervacijaZrno rezervacijaZrno;
 
+    @Inject
+    private RacunZrno racunZrno;
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
@@ -94,6 +98,23 @@ public class JPAServlet extends HttpServlet {
         r.setUporabnik(test);
         r.setPolnilnaPostaja(test2);
         rezervacijaZrno.createReservation(r);
+
+        //create racun pa get racun
+        Time zac = new Time(121000);
+        Time kon = new Time(120000);
+        Racun racun = new Racun();
+        racun.setLokacija("Ljubljana");
+        racun.setObratovanje_zacetek(zac);
+        racun.setObratovanje_konec(kon);
+        racun.setKoncnacena(12); //zanekrat hardcoded, obstaja poslovna metoda za to
+        racunZrno.createRacun(racun);
+
+        List<Racun> racuni = racunZrno.getRacuni();
+        resp.getWriter().printf("Racuni:\n");
+        for(Racun rac : racuni){
+            resp.getWriter().printf("%d\t%s\n", rac.getId_racun(), rac.getLokacija());
+        }
+        resp.getWriter().printf("\n");
 
     }
 }
