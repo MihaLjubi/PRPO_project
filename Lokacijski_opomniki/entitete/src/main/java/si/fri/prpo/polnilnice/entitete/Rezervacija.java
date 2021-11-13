@@ -21,8 +21,6 @@ public class Rezervacija {
 
     private Timestamp polnjenje_konec;
 
-    private Integer cena;
-
     @ManyToOne
     @JoinColumn(name = "id_polnilna_postaja")
     private PolnilnaPostaja polnilnaPostaja;
@@ -69,13 +67,5 @@ public class Rezervacija {
 
     public void setUporabnik(Uporabnik uporabnik) {
         this.uporabnik = uporabnik;
-    }
-
-    public Integer getCena() {
-        return cena;
-    }
-
-    public void setCena(Integer id_rezervacija) {
-        this.cena = cena;
     }
 }

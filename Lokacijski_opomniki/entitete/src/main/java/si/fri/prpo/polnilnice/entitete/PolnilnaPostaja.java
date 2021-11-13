@@ -36,7 +36,7 @@ public class PolnilnaPostaja {
 
     @OneToMany(mappedBy = "PolnilnaPostaja", cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "id_rezervacija")
-    private List<Rezervacija> comments = new ArrayList<>();
+    private List<Rezervacija>  rezervacije = new ArrayList<>();
 
     public Integer getId_polnilna_postaja() {
         return id_polnilna_postaja;
@@ -86,11 +86,11 @@ public class PolnilnaPostaja {
         this.cena = cena;
     }
 
-    public List<Rezervacija> getComments() {
-        return comments;
+    public List<Rezervacija> getRezervacije() {
+        return rezervacije;
     }
 
-    public void setComments(List<Rezervacija> comments) {
-        this.comments = comments;
+    public void setRezervacije(List<Rezervacija> rezervacije) {
+        this.rezervacije = rezervacije;
     }
 }

@@ -25,6 +25,8 @@ public class UpravljanjePolnilnihPostajZrno {
     private PolnilnaPostajaZrno polnilnaPostajaZrno;
     @Inject
     private RezervacijaZrno rezervacijaZrno;
+    @Inject
+    private RacunZrno racunZrno;
 
     private Logger logger = Logger.getLogger(UpravljanjePolnilnihPostajZrno.class.getName());
 
@@ -39,7 +41,8 @@ public class UpravljanjePolnilnihPostajZrno {
         logger.info("Uničenje zrna " + UpravljanjePolnilnihPostajZrno.class.getSimpleName());
     }
 
-    public void rezervacijaPolnilnePostaje(RezervacijaDTO rezervacijaDTO) {//ustvari novo rezervacijo
+    //ustvari novo rezervacijo
+    public void rezervacijaPolnilnePostaje(RezervacijaDTO rezervacijaDTO) {
         if (!rezervacijaDTO.validate())
             return;
 
@@ -48,28 +51,35 @@ public class UpravljanjePolnilnihPostajZrno {
         reservation.setPolnilnaPostaja(rezervacijaDTO.getPolnilnaPostaja());
         reservation.setPolnjenje_zacetek(rezervacijaDTO.getPolnjenjeZacetek());
         reservation.setPolnjenje_konec(rezervacijaDTO.getPolnjenjeKonec());
-        reservation.setCena(rezervacijaDTO.getCena());
-        rezervacijaZrno.createReservation(reservation);
 
+        rezervacijaZrno.createReservation(reservation);
     }
-    public int izracunajCeno(Racun racunDTO, PolnilnaPostajaDTO polnilnaPostajaDTO) {//izrcuna ceno za vsako rezervacijo
-        Time start = racunDTO.getObratovanje_zacetek();
-        Time end = racunDTO.getObratovanje_konec();
-        long duration = start.getTime() - end.getTime();
+
+    //izrcuna ceno za vsako rezervacijo
+    public void izdajRacun(RacunDTO racunDTO) {
+        long duration = racunDTO.getRezervacija().getPolnjenje_zacetek().getTime() - racunDTO.getRezervacija().getPolnjenje_konec().getTime();
         long rezLength = TimeUnit.MILLISECONDS.toMinutes(duration);
         int flatrate = 5;
-        int cenaMinute = polnilnaPostajaDTO.getCena();
-        long cena = (flatrate + rezLength * cenaMinute);
+        int cenaMinute = racunDTO.getRezervacija().getPolnilnaPostaja().getCena();
+        double cena = (flatrate + rezLength * cenaMinute);
 
-        return (int)cena;
+        Racun racun = new Racun();
+        racun.setKoncnacena(cena);
+        racun.setRezervacija(racunDTO.getRezervacija());
+
+        racunZrno.createRacun(racun);
     }
-    public void ustvariPolnilnico(PolnilnaPostajaDTO polnilnaPostajaDTO){//ustvari novo polnilno postajo
+
+    //ustvari novo polnilno postajo
+    public void ustvariPolnilnoPostajo(PolnilnaPostajaDTO polnilnaPostajaDTO){
+
         PolnilnaPostaja pp = new PolnilnaPostaja();
         pp.setLokacija(polnilnaPostajaDTO.getLokacija());
         pp.setStatus(polnilnaPostajaDTO.getStatus());
         pp.setObratovanje_zacetek(polnilnaPostajaDTO.getObratovanje_zacetek());
         pp.setObratovanje_konec(polnilnaPostajaDTO.getObratovanje_konec());
         pp.setCena(polnilnaPostajaDTO.getCena());
+
         polnilnaPostajaZrno.createChargingStation(pp);
     }
 }

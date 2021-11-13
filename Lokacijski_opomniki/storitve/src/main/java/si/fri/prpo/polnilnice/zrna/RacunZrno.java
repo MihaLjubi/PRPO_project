@@ -61,19 +61,15 @@ public class RacunZrno {
 
     // UPDATE
     @Transactional
-    public void updateReservation(int id_racun, Racun racun) {
+    public void updateRacun(int id_racun, Racun racun) {
         Racun r = em.find(Racun.class, id_racun);
         racun.setId_racun(r.getId_racun());
-        racun.setKoncnacena(r.getKoncnacena());
-        racun.setLokacija(r.getLokacija());
-        racun.setObratovanje_konec(r.getObratovanje_konec());
-        racun.setObratovanje_zacetek(r.getObratovanje_zacetek());
         em.merge(racun);
     }
 
     // DELETE
     @Transactional(Transactional.TxType.REQUIRED)
-    public void deleteReservation(int id_racun) {
+    public void deleteRacun(int id_racun) {
         Racun racun = em.find(Racun.class, id_racun);
         if (racun != null) {
             em.remove(racun);

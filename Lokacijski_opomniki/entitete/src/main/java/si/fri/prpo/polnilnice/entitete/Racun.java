@@ -1,7 +1,6 @@
 package si.fri.prpo.polnilnice.entitete;
 
 import javax.persistence.*;
-import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,10 +15,7 @@ public class Racun {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id_racun;
-    private String lokacija;
-    private Time obratovanje_zacetek;
-    private Time obratovanje_konec;
-    private Integer koncnacena;
+    private double koncnacena;
 
     @OneToOne
     @JoinColumn(name = "id_rezervacija")
@@ -33,35 +29,19 @@ public class Racun {
         this.id_racun = id_racun;
     }
 
-    public String getLokacija() {
-        return lokacija;
-    }
-
-    public void setLokacija(String lokacija) {
-        this.lokacija = lokacija;
-    }
-
-    public Time getObratovanje_zacetek() {
-        return obratovanje_zacetek;
-    }
-
-    public void setObratovanje_zacetek(Time obratovanje_zacetek) {
-        this.obratovanje_zacetek = obratovanje_zacetek;
-    }
-
-    public Time getObratovanje_konec() {
-        return obratovanje_konec;
-    }
-
-    public void setObratovanje_konec(Time obratovanje_konec) {
-        this.obratovanje_konec = obratovanje_konec;
-    }
-
-    public Integer getKoncnacena() {
+    public double getKoncnacena() {
         return koncnacena;
     }
 
-    public void setKoncnacena(Integer koncnacena) {
+    public void setKoncnacena(double koncnacena) {
         this.koncnacena = koncnacena;
+    }
+
+    public Rezervacija getRezervacija() {
+        return rezervacija;
+    }
+
+    public void setRezervacija(Rezervacija rezervacija) {
+        this.rezervacija = rezervacija;
     }
 }

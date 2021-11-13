@@ -9,7 +9,11 @@ import si.fri.prpo.polnilnice.zrna.UporabnikZrno;
 import si.fri.prpo.polnilnice.entitete.PolnilnaPostaja;
 import si.fri.prpo.polnilnice.entitete.PolnilnaPostaja.Status;
 import si.fri.prpo.polnilnice.zrna.PolnilnaPostajaZrno;
+import si.fri.prpo.polnilnice.zrna.UpravljanjePolnilnihPostajZrno;
 import java.sql.Time;
+
+import si.fri.prpo.polnilnice.DTO.RezervacijaDTO;
+import si.fri.prpo.polnilnice.DTO.PolnilnaPostajaDTO;
 
 import javax.inject.Inject;
 import javax.servlet.ServletException;
@@ -28,13 +32,8 @@ public class JPAServlet extends HttpServlet {
     private UporabnikZrno uporabnikZrno;
 
     @Inject
-    private PolnilnaPostajaZrno polnilnaPostajaZrno;
+    private UpravljanjePolnilnihPostajZrno upravljanjePolnilnihPostajZrno;
 
-    @Inject
-    private RezervacijaZrno rezervacijaZrno;
-
-    @Inject
-    private RacunZrno racunZrno;
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
@@ -45,7 +44,6 @@ public class JPAServlet extends HttpServlet {
 
         List<Uporabnik> uporabniki = uporabnikZrno.getUporabniki();
         Uporabnik userbyid = uporabnikZrno.getById(1);
-        uporabnikZrno.deleteUser(2);
         test.setIme("Brzomir");
         uporabnikZrno.updateUser(3, test);
         List<Uporabnik> usersCrit = uporabnikZrno.getUporabnikiCriteria();
@@ -68,21 +66,22 @@ public class JPAServlet extends HttpServlet {
         }
         resp.getWriter().printf("\n");
 
-        Time startTime = new Time(8, 50, 0);
-        Time endTime = new Time(20, 0, 0);
-        Status status = Status.ACTIVE;
-        PolnilnaPostaja test2 = new PolnilnaPostaja();
-        test2.setCena(10);
+        Time startTime = new Time(12, 50, 0);
+        Time endTime = new Time(20, 45, 0);
+        Status status = Status.DISABLED;
+        PolnilnaPostajaDTO test2 = new PolnilnaPostajaDTO();
+        test2.setCena(69);
         test2.setLokacija("Gornje radgone 12, 5000 Nikje");
         test2.setObratovanje_zacetek(startTime);
         test2.setObratovanje_konec(endTime);
         test2.setStatus(status);
 
-        List<PolnilnaPostaja> pps = polnilnaPostajaZrno.getPolnilnePostaje();
+        upravljanjePolnilnihPostajZrno.ustvariPolnilnoPostajo(test2);
+
+
+        /* List<PolnilnaPostaja> pps = polnilnaPostajaZrno.getPolnilnePostaje();
         PolnilnaPostaja ppbyid = polnilnaPostajaZrno.getById(3);
-        polnilnaPostajaZrno.deleteChargingStation(2);
         test2.setLokacija("Brzomir");
-        polnilnaPostajaZrno.updateChargingStation(1, test2);
 
         resp.getWriter().printf("Postaje:\n");
         for(PolnilnaPostaja pp : pps){
@@ -90,31 +89,22 @@ public class JPAServlet extends HttpServlet {
         }
         resp.getWriter().printf("\n");
 
-        Timestamp st = new Timestamp(2021, 10, 21, 18, 20, 0, 0);
-        Timestamp se = new Timestamp(2021, 10, 21, 20, 20, 0, 0);
-        Rezervacija r = new Rezervacija();
-        r.setPolnjenje_konec(se);
-        r.setPolnjenje_zacetek(st);
-        r.setUporabnik(test);
-        r.setPolnilnaPostaja(test2);
-        rezervacijaZrno.createReservation(r);
-
-        //create racun pa get racun
-        Time zac = new Time(121000);
-        Time kon = new Time(120000);
-        Racun racun = new Racun();
-        racun.setLokacija("Ljubljana");
-        racun.setObratovanje_zacetek(zac);
-        racun.setObratovanje_konec(kon);
-        racun.setKoncnacena(12); //zanekrat hardcoded, obstaja poslovna metoda za to
-        racunZrno.createRacun(racun);
-
         List<Racun> racuni = racunZrno.getRacuni();
         resp.getWriter().printf("Racuni:\n");
         for(Racun rac : racuni){
-            resp.getWriter().printf("%d\t%s\n", rac.getId_racun(), rac.getLokacija());
+            resp.getWriter().printf("%d\t%s\n", rac.getId_racun(), rac.getKoncnacena());
         }
         resp.getWriter().printf("\n");
+
+        Racun racun = new Racun();
+        racun.setKoncnacena(12.5);
+        racun.setRezervacija(rezervacijaZrno.getById(1));
+        racunZrno.deleteRacun(1);
+        racunZrno.updateRacun(2, racun);
+
+        polnilnaPostajaZrno.updateChargingStation(1, test2); */
+
+
 
     }
 }

@@ -5,15 +5,14 @@ import si.fri.prpo.polnilnice.entitete.PolnilnaPostaja;
 
 import java.sql.Timestamp;
 
-public class RezervacijaDTO extends BaseDTO{
+public class RezervacijaDTO extends BaseDTO {
     private Uporabnik uporabnik;
     private PolnilnaPostaja polnilnaPostaja;
     private Timestamp polnjenjeZacetek;
     private Timestamp polnjenjeKonec;
-    private Integer cena;
 
     @Override
-    public boolean validate(){
+    public boolean validate() {
         //TODO: implement
 
         return true;
@@ -50,9 +49,5 @@ public class RezervacijaDTO extends BaseDTO{
     public void setPolnjenjeKonec(Timestamp polnjenjeKonec) {
         this.polnjenjeKonec = polnjenjeKonec;
     }
-
-    public Integer getCena() { return cena; }
-
-    public void setCena(Integer cena) { this.cena = cena; }
 
 }
