@@ -7,7 +7,7 @@
     <groupId>si.fri.prpo.lokacijskiopomniki</groupId>
     <artifactId>lokacijski-opomniki</artifactId>
     <packaging>pom</packaging>
-    <version>RELEASE-0.2</version>
+    <version>RELEASE-0.3</version>
 
     <modules>
         <module>api</module>

@@ -10,6 +10,7 @@ import si.fri.prpo.polnilnice.entitete.Rezervacija;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import java.sql.Time;
 import java.sql.Timestamp;
@@ -17,7 +18,7 @@ import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 
-@ApplicationScoped
+@RequestScoped
 public class UpravljanjePolnilnihPostajZrno {
     @Inject
     private UporabnikZrno uporabnikZrno;
