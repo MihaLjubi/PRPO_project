@@ -59,9 +59,8 @@ public class UpravljanjePolnilnihPostajZrno {
     public void izdajRacun(RacunDTO racunDTO) {
         long duration = racunDTO.getRezervacija().getPolnjenje_zacetek().getTime() - racunDTO.getRezervacija().getPolnjenje_konec().getTime();
         long rezLength = TimeUnit.MILLISECONDS.toMinutes(duration);
-        int flatrate = 5;
         int cenaMinute = racunDTO.getRezervacija().getPolnilnaPostaja().getCena();
-        double cena = (flatrate + rezLength * cenaMinute);
+        double cena = rezLength * cenaMinute;
 
         Racun racun = new Racun();
         racun.setKoncnacena(cena);
