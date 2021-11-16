@@ -1,0 +1,52 @@
+package si.fri.prpo.polnilnice.api.v1.viri;
+
+import com.kumuluz.ee.cors.annotations.CrossOrigin;
+import com.kumuluz.ee.rest.beans.QueryParameters;
+import org.jboss.logging.Logger;
+
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
+import javax.persistence.Query;
+import javax.ws.rs.*;
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.UriInfo;
+
+import si.fri.prpo.polnilnice.entitete.Uporabnik;
+import si.fri.prpo.polnilnice.zrna.RezervacijaZrno;
+import si.fri.prpo.polnilnice.zrna.UporabnikZrno;
+
+import java.util.List;
+
+@ApplicationScoped
+@Produces(MediaType.APPLICATION_JSON)
+@Consumes(MediaType.APPLICATION_JSON)
+@Path("uporabniki")
+@CrossOrigin(supportedMethods = "GET, POST, PUT, DELETE, HEAD, OPTIONS")
+public class UporabnikVir {
+
+    private Logger logger = Logger.getLogger(UporabnikVir.class.getName());
+    @Context
+    protected UriInfo uriInfo;
+
+    @Inject
+    private UporabnikZrno uporabnikZrno;
+
+    @GET
+    public Response getAllUsers() {
+        List<Uporabnik> users = uporabnikZrno.getUporabniki();
+        return Response.status(Response.Status.OK).entity(users).build();
+    }
+
+    @GET
+    @Path("{id}")
+    public Response getUser(@PathParam("id") Integer id) {
+        Uporabnik user = uporabnikZrno.getById(id);
+        if(user != null) {
+            return Response.status(Response.Status.OK).entity(user).build();
+        } else {
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+    }
+}

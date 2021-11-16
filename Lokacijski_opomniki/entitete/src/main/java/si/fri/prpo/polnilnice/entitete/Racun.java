@@ -1,5 +1,6 @@
 package si.fri.prpo.polnilnice.entitete;
 
+import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +18,7 @@ public class Racun {
     private Integer id_racun;
     private double koncnacena;
 
+    @JsonbTransient
     @OneToOne
     @JoinColumn(name = "id_rezervacija")
     private Rezervacija rezervacija;

@@ -2,6 +2,7 @@ package si.fri.prpo.polnilnice.entitete;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import javax.json.bind.annotation.JsonbTransient;
 
 @Entity(name = "rezervacija")
 @NamedQueries(value =
@@ -21,10 +22,12 @@ public class Rezervacija {
 
     private Timestamp polnjenje_konec;
 
+    @JsonbTransient
     @ManyToOne
     @JoinColumn(name = "id_polnilna_postaja")
     private PolnilnaPostaja polnilnaPostaja;
 
+    @JsonbTransient
     @ManyToOne
     @JoinColumn(name = "id_uporabnik")
     private Uporabnik uporabnik;

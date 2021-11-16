@@ -1,5 +1,6 @@
 package si.fri.prpo.polnilnice.entitete;
 
+import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.*;
 import java.sql.Time;
 import java.util.ArrayList;
@@ -34,6 +35,7 @@ public class PolnilnaPostaja {
 
     private Integer cena;
 
+    @JsonbTransient
     @OneToMany(mappedBy = "PolnilnaPostaja", cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "id_rezervacija")
     private List<Rezervacija>  rezervacije = new ArrayList<>();

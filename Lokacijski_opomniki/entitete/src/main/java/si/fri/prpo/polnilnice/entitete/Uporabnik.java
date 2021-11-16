@@ -3,6 +3,7 @@ package si.fri.prpo.polnilnice.entitete;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import javax.json.bind.annotation.JsonbTransient;
 
 @Entity(name = "uporabnik")
 @NamedQueries(value =
@@ -24,6 +25,7 @@ public class Uporabnik {
 
         private String uporabnisko_ime;
 
+        @JsonbTransient
         @OneToMany(mappedBy = "Uporabnik", cascade = CascadeType.ALL, orphanRemoval = true)
         @JoinColumn(name = "id_rezervacija")
         private List<Rezervacija> rezervacije = new ArrayList<>();
