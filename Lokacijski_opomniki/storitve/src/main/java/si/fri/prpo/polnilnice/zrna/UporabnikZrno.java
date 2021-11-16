@@ -38,10 +38,11 @@ public class UporabnikZrno {
     // CRUD operations
     // CREATE
     @Transactional
-    public void createUser(Uporabnik user) {
+    public Uporabnik createUser(Uporabnik user) {
         if(user != null) {
             em.persist(user);
         }
+        return user;
     }
 
     // READ
@@ -62,19 +63,22 @@ public class UporabnikZrno {
 
     // UPDATE
     @Transactional
-    public void updateUser(int uporabnik_id, Uporabnik user) {
+    public Uporabnik updateUser(int uporabnik_id, Uporabnik user) {
         Uporabnik u = em.find(Uporabnik.class, uporabnik_id);
         user.setId_uporabnik(u.getId_uporabnik());
         em.merge(user);
+        return user;
     }
 
     // DELETE
     @Transactional(Transactional.TxType.REQUIRED)
-    public void deleteUser(int uporabnik_id) {
+    public boolean deleteUser(int uporabnik_id) {
         Uporabnik user = em.find(Uporabnik.class, uporabnik_id);
         if (user != null) {
             em.remove(user);
+            return true;
         }
+        return false;
     }
 
     //namedquery metoda

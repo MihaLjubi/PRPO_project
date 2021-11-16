@@ -49,4 +49,36 @@ public class UporabnikVir {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
     }
+
+    @POST
+    public Response addUser(Uporabnik user) {
+        Uporabnik u = uporabnikZrno.createUser(user);
+        if(user != null) {
+            return Response.status(Response.Status.OK).entity(user).build();
+        } else {
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+    }
+
+    @PUT
+    @Path("{id}")
+    public Response updateUser(@PathParam("id") Integer id, Uporabnik user) {
+        Uporabnik u = uporabnikZrno.updateUser(id, user);
+        if(u != null) {
+            return Response.status(Response.Status.OK).entity(u).build();
+        } else {
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+    }
+
+    @DELETE
+    @Path("{id}")
+    public Response deleteUser(@PathParam("id") Integer id) {
+        var result = uporabnikZrno.deleteUser(id);
+        if(result) {
+            return Response.status(Response.Status.OK).entity(result).build();
+        } else {
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+    }
 }

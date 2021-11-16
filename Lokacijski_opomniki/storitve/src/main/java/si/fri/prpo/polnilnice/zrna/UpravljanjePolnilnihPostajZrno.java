@@ -18,7 +18,7 @@ import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 
-@RequestScoped
+@ApplicationScoped
 public class UpravljanjePolnilnihPostajZrno {
     @Inject
     private UporabnikZrno uporabnikZrno;
