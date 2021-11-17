@@ -4,9 +4,10 @@ import si.fri.prpo.polnilnice.entitete.Rezervacija;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
-import java.util.UUID;
+import javax.enterprise.context.ApplicationScoped;
 import java.util.logging.Logger;
 
+@ApplicationScoped
 public class BelezenjeKlicevZrno {
 
     private Logger logger = Logger.getLogger(BelezenjeKlicevZrno.class.getName());

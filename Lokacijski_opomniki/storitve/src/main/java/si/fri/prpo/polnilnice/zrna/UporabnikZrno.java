@@ -2,6 +2,7 @@ package si.fri.prpo.polnilnice.zrna;
 
 import org.jboss.logging.Logger;
 import si.fri.prpo.polnilnice.entitete.Uporabnik;
+import si.fri.prpo.polnilnice.interceptor.BeleziKlice;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -46,6 +47,7 @@ public class UporabnikZrno {
     }
 
     // READ
+    @BeleziKlice
     public List<Uporabnik> getUporabniki() {
         TypedQuery<Uporabnik> query = em.createNamedQuery("Uporabnik.getAll", Uporabnik.class);
         List<Uporabnik> results = query.getResultList();
@@ -53,6 +55,7 @@ public class UporabnikZrno {
         return results;
     }
 
+    @BeleziKlice
     public Uporabnik getById(Integer id) {
         TypedQuery<Uporabnik> query = em.createNamedQuery("Uporabnik.getById", Uporabnik.class);
         query.setParameter("id", id);
@@ -62,6 +65,7 @@ public class UporabnikZrno {
     }
 
     // UPDATE
+    @BeleziKlice
     @Transactional
     public Uporabnik updateUser(int uporabnik_id, Uporabnik user) {
         Uporabnik u = em.find(Uporabnik.class, uporabnik_id);
@@ -71,6 +75,7 @@ public class UporabnikZrno {
     }
 
     // DELETE
+    @BeleziKlice
     @Transactional(Transactional.TxType.REQUIRED)
     public boolean deleteUser(int uporabnik_id) {
         Uporabnik user = em.find(Uporabnik.class, uporabnik_id);
