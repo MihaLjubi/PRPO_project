@@ -43,9 +43,9 @@ public class UpravljanjePolnilnihPostajZrno {
     }
 
     //ustvari novo rezervacijo
-    public void rezervacijaPolnilnePostaje(RezervacijaDTO rezervacijaDTO) {
+    public Rezervacija rezervacijaPolnilnePostaje(RezervacijaDTO rezervacijaDTO) {
         if (!rezervacijaDTO.validate())
-            return;
+            return null;
 
         Rezervacija reservation = new Rezervacija();
         reservation.setUporabnik(rezervacijaDTO.getUporabnik());
@@ -53,7 +53,8 @@ public class UpravljanjePolnilnihPostajZrno {
         reservation.setPolnjenje_zacetek(rezervacijaDTO.getPolnjenjeZacetek());
         reservation.setPolnjenje_konec(rezervacijaDTO.getPolnjenjeKonec());
 
-        rezervacijaZrno.createReservation(reservation);
+        Rezervacija r = rezervacijaZrno.createReservation(reservation);
+        return r;
     }
 
     //izrcuna ceno za vsako rezervacijo

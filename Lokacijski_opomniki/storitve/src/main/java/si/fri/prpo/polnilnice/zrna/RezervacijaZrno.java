@@ -36,10 +36,11 @@ public class RezervacijaZrno {
     // CRUD operations
     // CREATE
     @Transactional
-    public void createReservation(Rezervacija reservation) {
+    public Rezervacija createReservation(Rezervacija reservation) {
         if(reservation != null) {
             em.persist(reservation);
         }
+        return reservation;
     }
 
     // READ
@@ -60,18 +61,21 @@ public class RezervacijaZrno {
 
     // UPDATE
     @Transactional
-    public void updateReservation(int id_rezervacija, Rezervacija reservation) {
+    public Rezervacija updateReservation(int id_rezervacija, Rezervacija reservation) {
         Rezervacija r = em.find(Rezervacija.class, id_rezervacija);
         reservation.setId_rezervacija(r.getId_rezervacija());
         em.merge(reservation);
+        return reservation;
     }
 
     // DELETE
     @Transactional(Transactional.TxType.REQUIRED)
-    public void deleteReservation(int id_rezervacija) {
+    public boolean deleteReservation(int id_rezervacija) {
         Rezervacija reservation = em.find(Rezervacija.class, id_rezervacija);
         if (reservation != null) {
             em.remove(reservation);
+            return true;
         }
+        return false;
     }
 }

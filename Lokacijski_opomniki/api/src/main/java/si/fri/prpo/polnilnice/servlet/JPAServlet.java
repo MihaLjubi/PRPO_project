@@ -34,6 +34,9 @@ public class JPAServlet extends HttpServlet {
     @Inject
     private UpravljanjePolnilnihPostajZrno upravljanjePolnilnihPostajZrno;
 
+    @Inject
+    private PolnilnaPostajaZrno polnilnaPostajaZrno;
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
@@ -77,6 +80,20 @@ public class JPAServlet extends HttpServlet {
         test2.setStatus(status);
 
         upravljanjePolnilnihPostajZrno.ustvariPolnilnoPostajo(test2);
+
+        /*
+        Timestamp st = new Timestamp(2021, 5, 5, 12, 30, 0, 0);
+        Timestamp se = new Timestamp(2021, 5, 5, 18, 30, 0, 0);
+        RezervacijaDTO r = new RezervacijaDTO();
+        r.setPolnjenjeZacetek(st);
+        r.setPolnjenjeKonec(se);
+        r.setUporabnik(userbyid);
+        r.setPolnilnaPostaja(polnilnaPostajaZrno.getById(1));
+
+        Rezervacija rr = upravljanjePolnilnihPostajZrno.rezervacijaPolnilnePostaje(r);
+        System.out.printf("%d\t%s\t%d\t%d", rr.getId_rezervacija(), rr.getPolnjenje_zacetek(), rr.getPolnilnaPostaja().getId_polnilna_postaja(), rr.getUporabnik().getId_uporabnik());
+        */
+
 
 
         /* List<PolnilnaPostaja> pps = polnilnaPostajaZrno.getPolnilnePostaje();

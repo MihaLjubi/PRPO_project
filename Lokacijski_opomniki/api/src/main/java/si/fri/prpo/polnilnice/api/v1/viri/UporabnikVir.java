@@ -14,7 +14,6 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
 import si.fri.prpo.polnilnice.entitete.Uporabnik;
-import si.fri.prpo.polnilnice.zrna.RezervacijaZrno;
 import si.fri.prpo.polnilnice.zrna.UporabnikZrno;
 
 import java.util.List;
