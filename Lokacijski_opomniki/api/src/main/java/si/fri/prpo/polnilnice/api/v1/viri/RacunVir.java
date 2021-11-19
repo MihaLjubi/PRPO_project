@@ -2,9 +2,9 @@ package si.fri.prpo.polnilnice.api.v1.viri;
 
 import com.kumuluz.ee.cors.annotations.CrossOrigin;
 import org.jboss.logging.Logger;
-import si.fri.prpo.polnilnice.DTO.RezervacijaDTO;
-import si.fri.prpo.polnilnice.entitete.Rezervacija;
-import si.fri.prpo.polnilnice.zrna.RezervacijaZrno;
+import si.fri.prpo.polnilnice.DTO.RacunDTO;
+import si.fri.prpo.polnilnice.entitete.Racun;
+import si.fri.prpo.polnilnice.zrna.RacunZrno;
 import si.fri.prpo.polnilnice.zrna.UpravljanjePolnilnihPostajZrno;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -19,40 +19,39 @@ import java.util.List;
 @ApplicationScoped
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-@Path("rezervacije")
+@Path("racuni")
 @CrossOrigin(supportedMethods = "GET, POST, PUT, DELETE, HEAD, OPTIONS")
-public class RezervacijaVir {
-
-    private Logger logger = Logger.getLogger(RezervacijaVir.class.getName());
+public class RacunVir {
+    private Logger logger = Logger.getLogger(RacunVir.class.getName());
     @Context
     protected UriInfo uriInfo;
 
     @Inject
-    private RezervacijaZrno rezervacijaZrno;
+    private RacunZrno racunZrno;
 
     @Inject
     private UpravljanjePolnilnihPostajZrno upravljanjePolnilnihPostajZrno;
 
     @GET
-    public Response getAllReservations() {
-        List<Rezervacija> rezervacije = rezervacijaZrno.getRezervacije();
-        return Response.status(Response.Status.OK).entity(rezervacije).build();
+    public Response getAllReceipts() {
+        List<Racun> racuni = racunZrno.getRacuni();
+        return Response.status(Response.Status.OK).entity(racuni).build();
     }
 
     @GET
     @Path("{id}")
-    public Response getReservation(@PathParam("id") Integer id) {
-        Rezervacija reservation = rezervacijaZrno.getById(id);
-        if(reservation != null) {
-            return Response.status(Response.Status.OK).entity(reservation).build();
+    public Response getReceipt(@PathParam("id") Integer id) {
+        Racun racun = racunZrno.getById(id);
+        if(racun != null) {
+            return Response.status(Response.Status.OK).entity(racun).build();
         } else {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
     }
 
     @POST
-    public Response addReservation(RezervacijaDTO rezervacijaDTO) {
-        Rezervacija r = upravljanjePolnilnihPostajZrno.rezervacijaPolnilnePostaje(rezervacijaDTO);
+    public Response addRacun(RacunDTO racunDTO) {
+        Racun r = upravljanjePolnilnihPostajZrno.izdajRacun(racunDTO);
         if(r != null) {
             return Response.status(Response.Status.OK).entity(r).build();
         } else {
@@ -62,8 +61,8 @@ public class RezervacijaVir {
 
     @PUT
     @Path("{id}")
-    public Response updateReservation(@PathParam("id") Integer id, Rezervacija reservation) {
-        Rezervacija r = rezervacijaZrno.updateReservation(id, reservation);
+    public Response updateRacun(@PathParam("id") Integer id, Racun racun) {
+        Racun r = racunZrno.updateRacun(id, racun);
         if(r != null) {
             return Response.status(Response.Status.OK).entity(r).build();
         } else {
@@ -73,8 +72,8 @@ public class RezervacijaVir {
 
     @DELETE
     @Path("{id}")
-    public Response deleteReservation(@PathParam("id") Integer id) {
-        var result = rezervacijaZrno.deleteReservation(id);
+    public Response deleteRacun(@PathParam("id") Integer id) {
+        var result = racunZrno.deleteRacun(id);
         if(result) {
             return Response.status(Response.Status.OK).build();
         } else {

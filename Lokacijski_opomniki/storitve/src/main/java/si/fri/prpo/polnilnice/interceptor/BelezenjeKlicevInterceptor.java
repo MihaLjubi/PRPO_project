@@ -16,7 +16,7 @@ public class BelezenjeKlicevInterceptor {
 
     @AroundInvoke
     public Object BelezenjeKlicev(InvocationContext context) throws Exception {
-        belezenjeKlicevZrno.inc();
+        belezenjeKlicevZrno.inc(context);
         return context.proceed();
     }
 

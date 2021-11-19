@@ -61,18 +61,22 @@ public class RacunZrno {
 
     // UPDATE
     @Transactional
-    public void updateRacun(int id_racun, Racun racun) {
+    public Racun updateRacun(int id_racun, Racun racun) {
         Racun r = em.find(Racun.class, id_racun);
         racun.setId_racun(r.getId_racun());
         em.merge(racun);
+
+        return r;
     }
 
     // DELETE
     @Transactional(Transactional.TxType.REQUIRED)
-    public void deleteRacun(int id_racun) {
+    public boolean deleteRacun(int id_racun) {
         Racun racun = em.find(Racun.class, id_racun);
         if (racun != null) {
             em.remove(racun);
+            return true;
         }
+        return false;
     }
 }

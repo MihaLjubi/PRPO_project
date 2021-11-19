@@ -59,18 +59,21 @@ public class PolnilnaPostajaZrno {
 
     // UPDATE
     @Transactional
-    public void updateChargingStation(int id_polnilna_postaja, PolnilnaPostaja chargingStation) {
+    public PolnilnaPostaja updateChargingStation(int id_polnilna_postaja, PolnilnaPostaja chargingStation) {
         PolnilnaPostaja pp = em.find(PolnilnaPostaja.class, id_polnilna_postaja);
         chargingStation.setId_polnilna_postaja(pp.getId_polnilna_postaja());
         em.merge(chargingStation);
+        return pp;
     }
 
     // DELETE
     @Transactional(Transactional.TxType.REQUIRED)
-    public void deleteChargingStation(int id_polnilna_postaja) {
+    public boolean deleteChargingStation(int id_polnilna_postaja) {
         PolnilnaPostaja chargingStation = em.find(PolnilnaPostaja.class, id_polnilna_postaja);
         if (chargingStation != null) {
             em.remove(chargingStation);
+            return true;
         }
+        return false;
     }
 }

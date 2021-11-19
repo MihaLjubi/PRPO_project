@@ -58,7 +58,7 @@ public class UpravljanjePolnilnihPostajZrno {
     }
 
     //izrcuna ceno za vsako rezervacijo
-    public void izdajRacun(RacunDTO racunDTO) {
+    public Racun izdajRacun(RacunDTO racunDTO) {
         long duration = racunDTO.getRezervacija().getPolnjenje_zacetek().getTime() - racunDTO.getRezervacija().getPolnjenje_konec().getTime();
         long rezLength = TimeUnit.MILLISECONDS.toMinutes(duration);
         int cenaMinute = racunDTO.getRezervacija().getPolnilnaPostaja().getCena();
@@ -69,10 +69,11 @@ public class UpravljanjePolnilnihPostajZrno {
         racun.setRezervacija(racunDTO.getRezervacija());
 
         racunZrno.createRacun(racun);
+        return racun;
     }
 
     //ustvari novo polnilno postajo
-    public void ustvariPolnilnoPostajo(PolnilnaPostajaDTO polnilnaPostajaDTO){
+    public PolnilnaPostaja ustvariPolnilnoPostajo(PolnilnaPostajaDTO polnilnaPostajaDTO){
 
         PolnilnaPostaja pp = new PolnilnaPostaja();
         pp.setLokacija(polnilnaPostajaDTO.getLokacija());
@@ -82,5 +83,6 @@ public class UpravljanjePolnilnihPostajZrno {
         pp.setCena(polnilnaPostajaDTO.getCena());
 
         polnilnaPostajaZrno.createChargingStation(pp);
+        return pp;
     }
 }
