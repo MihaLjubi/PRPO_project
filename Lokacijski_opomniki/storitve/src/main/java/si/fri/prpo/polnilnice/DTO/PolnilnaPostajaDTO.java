@@ -20,7 +20,9 @@ public class PolnilnaPostajaDTO extends BaseDTO {
 
     @Override
     public boolean validate() {
-        //TODO: implement
+        if(lokacija == null || status == null || obratovanje_konec == null || obratovanje_zacetek == null || cena == null){
+            return false;
+        }
 
         return true;
     }

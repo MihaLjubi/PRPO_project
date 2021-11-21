@@ -13,7 +13,9 @@ public class RezervacijaDTO extends BaseDTO {
 
     @Override
     public boolean validate() {
-        //TODO: implement
+        if(uporabnik == null || polnilnaPostaja == null || polnjenjeZacetek == null || polnjenjeKonec == null){
+            return false;
+        }
 
         return true;
     }

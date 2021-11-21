@@ -10,7 +10,9 @@ public class RacunDTO extends BaseDTO {
 
     @Override
     public boolean validate() {
-        //TODO: implement
+        if(koncnacena == 0 || rezervacija == null){
+            return false;
+        }
 
         return true;
     }
