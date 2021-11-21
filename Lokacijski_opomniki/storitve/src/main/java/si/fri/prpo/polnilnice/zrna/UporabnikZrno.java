@@ -38,6 +38,7 @@ public class UporabnikZrno {
 
     // CRUD operations
     // CREATE
+    @BeleziKlice
     @Transactional
     public Uporabnik createUser(Uporabnik user) {
         if(user != null) {

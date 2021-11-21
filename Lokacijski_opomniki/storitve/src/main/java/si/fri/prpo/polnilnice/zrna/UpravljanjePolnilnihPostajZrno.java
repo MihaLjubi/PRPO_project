@@ -6,6 +6,7 @@ import si.fri.prpo.polnilnice.DTO.RezervacijaDTO;
 import si.fri.prpo.polnilnice.entitete.PolnilnaPostaja;
 import si.fri.prpo.polnilnice.entitete.Racun;
 import si.fri.prpo.polnilnice.entitete.Rezervacija;
+import si.fri.prpo.polnilnice.interceptor.BeleziKlice;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -43,6 +44,7 @@ public class UpravljanjePolnilnihPostajZrno {
     }
 
     //ustvari novo rezervacijo
+    @BeleziKlice
     public Rezervacija rezervacijaPolnilnePostaje(RezervacijaDTO rezervacijaDTO) {
         if (!rezervacijaDTO.validate())
             return null;
@@ -58,6 +60,7 @@ public class UpravljanjePolnilnihPostajZrno {
     }
 
     //izrcuna ceno za vsako rezervacijo
+    @BeleziKlice
     public Racun izdajRacun(RacunDTO racunDTO) {
         long duration = racunDTO.getRezervacija().getPolnjenje_zacetek().getTime() - racunDTO.getRezervacija().getPolnjenje_konec().getTime();
         long rezLength = TimeUnit.MILLISECONDS.toMinutes(duration);
@@ -73,6 +76,7 @@ public class UpravljanjePolnilnihPostajZrno {
     }
 
     //ustvari novo polnilno postajo
+    @BeleziKlice
     public PolnilnaPostaja ustvariPolnilnoPostajo(PolnilnaPostajaDTO polnilnaPostajaDTO){
 
         PolnilnaPostaja pp = new PolnilnaPostaja();

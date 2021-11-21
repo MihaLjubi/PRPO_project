@@ -2,6 +2,7 @@ package si.fri.prpo.polnilnice.zrna;
 
 import org.jboss.logging.Logger;
 import si.fri.prpo.polnilnice.entitete.PolnilnaPostaja;
+import si.fri.prpo.polnilnice.interceptor.BeleziKlice;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -34,6 +35,7 @@ public class PolnilnaPostajaZrno {
 
     // CRUD operations
     // CREATE
+    @BeleziKlice
     @Transactional
     public void createChargingStation(PolnilnaPostaja chargingStation) {
         if(chargingStation != null) {
@@ -42,6 +44,7 @@ public class PolnilnaPostajaZrno {
     }
 
     // READ
+    @BeleziKlice
     public List<PolnilnaPostaja> getPolnilnePostaje() {
         TypedQuery<PolnilnaPostaja> query = em.createNamedQuery("PolnilnaPostaja.getAll", PolnilnaPostaja.class);
         List<PolnilnaPostaja> results = query.getResultList();
@@ -49,6 +52,7 @@ public class PolnilnaPostajaZrno {
         return results;
     }
 
+    @BeleziKlice
     public PolnilnaPostaja getById(Integer id) {
         TypedQuery<PolnilnaPostaja> query = em.createNamedQuery("PolnilnaPostaja.getById", PolnilnaPostaja.class);
         query.setParameter("id", id);
@@ -58,6 +62,7 @@ public class PolnilnaPostajaZrno {
     }
 
     // UPDATE
+    @BeleziKlice
     @Transactional
     public PolnilnaPostaja updateChargingStation(int id_polnilna_postaja, PolnilnaPostaja chargingStation) {
         PolnilnaPostaja pp = em.find(PolnilnaPostaja.class, id_polnilna_postaja);
@@ -67,6 +72,7 @@ public class PolnilnaPostajaZrno {
     }
 
     // DELETE
+    @BeleziKlice
     @Transactional(Transactional.TxType.REQUIRED)
     public boolean deleteChargingStation(int id_polnilna_postaja) {
         PolnilnaPostaja chargingStation = em.find(PolnilnaPostaja.class, id_polnilna_postaja);

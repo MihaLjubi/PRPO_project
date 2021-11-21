@@ -3,6 +3,7 @@ package si.fri.prpo.polnilnice.zrna;
 import org.jboss.logging.Logger;
 import si.fri.prpo.polnilnice.entitete.PolnilnaPostaja;
 import si.fri.prpo.polnilnice.entitete.Rezervacija;
+import si.fri.prpo.polnilnice.interceptor.BeleziKlice;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -35,6 +36,7 @@ public class RezervacijaZrno {
 
     // CRUD operations
     // CREATE
+    @BeleziKlice
     @Transactional
     public Rezervacija createReservation(Rezervacija reservation) {
         if(reservation != null) {
@@ -44,6 +46,7 @@ public class RezervacijaZrno {
     }
 
     // READ
+    @BeleziKlice
     public List<Rezervacija> getRezervacije() {
         TypedQuery<Rezervacija> query = em.createNamedQuery("Rezervacija.getAll", Rezervacija.class);
         List<Rezervacija> results = query.getResultList();
@@ -51,6 +54,7 @@ public class RezervacijaZrno {
         return results;
     }
 
+    @BeleziKlice
     public Rezervacija getById(Integer id) {
         TypedQuery<Rezervacija> query = em.createNamedQuery("Rezervacija.getById", Rezervacija.class);
         query.setParameter("id", id);
@@ -60,6 +64,7 @@ public class RezervacijaZrno {
     }
 
     // UPDATE
+    @BeleziKlice
     @Transactional
     public Rezervacija updateReservation(int id_rezervacija, Rezervacija reservation) {
         Rezervacija r = em.find(Rezervacija.class, id_rezervacija);
@@ -69,6 +74,7 @@ public class RezervacijaZrno {
     }
 
     // DELETE
+    @BeleziKlice
     @Transactional(Transactional.TxType.REQUIRED)
     public boolean deleteReservation(int id_rezervacija) {
         Rezervacija reservation = em.find(Rezervacija.class, id_rezervacija);

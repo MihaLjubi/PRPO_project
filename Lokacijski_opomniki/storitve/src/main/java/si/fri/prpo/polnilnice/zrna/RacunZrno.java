@@ -5,6 +5,7 @@ import si.fri.prpo.polnilnice.entitete.Racun;
 import si.fri.prpo.polnilnice.entitete.Rezervacija;
 import si.fri.prpo.polnilnice.entitete.PolnilnaPostaja;
 import si.fri.prpo.polnilnice.entitete.Rezervacija;
+import si.fri.prpo.polnilnice.interceptor.BeleziKlice;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -36,6 +37,7 @@ public class RacunZrno {
 
     // CRUD operations
     // CREATE
+    @BeleziKlice
     @Transactional
     public void createRacun(Racun racun) {
         if(racun != null) {
@@ -44,6 +46,7 @@ public class RacunZrno {
     }
 
     // READ
+    @BeleziKlice
     public List<Racun> getRacuni() {
         TypedQuery<Racun> query = em.createNamedQuery("Racun.getAll", Racun.class);
         List<Racun> results = query.getResultList();
@@ -51,6 +54,7 @@ public class RacunZrno {
         return results;
     }
 
+    @BeleziKlice
     public Racun getById(Integer id) {
         TypedQuery<Racun> query = em.createNamedQuery("Racun.getById", Racun.class);
         query.setParameter("id", id);
@@ -60,6 +64,7 @@ public class RacunZrno {
     }
 
     // UPDATE
+    @BeleziKlice
     @Transactional
     public Racun updateRacun(int id_racun, Racun racun) {
         Racun r = em.find(Racun.class, id_racun);
@@ -70,6 +75,7 @@ public class RacunZrno {
     }
 
     // DELETE
+    @BeleziKlice
     @Transactional(Transactional.TxType.REQUIRED)
     public boolean deleteRacun(int id_racun) {
         Racun racun = em.find(Racun.class, id_racun);
