@@ -26,6 +26,12 @@
             <groupId>si.fri.prpo.lokacijskiopomniki</groupId>
             <artifactId>entitete</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.kumuluz.ee.rest</groupId>
+            <artifactId>kumuluzee-rest-core</artifactId>
+            <version>1.5.1</version>
+            <scope>compile</scope>
+        </dependency>
     </dependencies>
 
     <properties>

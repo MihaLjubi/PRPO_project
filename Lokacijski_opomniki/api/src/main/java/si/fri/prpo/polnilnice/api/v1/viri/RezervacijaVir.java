@@ -1,6 +1,7 @@
 package si.fri.prpo.polnilnice.api.v1.viri;
 
 import com.kumuluz.ee.cors.annotations.CrossOrigin;
+import com.kumuluz.ee.rest.beans.QueryParameters;
 import org.jboss.logging.Logger;
 import si.fri.prpo.polnilnice.DTO.RezervacijaDTO;
 import si.fri.prpo.polnilnice.entitete.Rezervacija;
@@ -35,7 +36,8 @@ public class RezervacijaVir {
 
     @GET
     public Response getAllReservations() {
-        List<Rezervacija> rezervacije = rezervacijaZrno.getRezervacije();
+        QueryParameters query = QueryParameters.query(uriInfo.getRequestUri().getQuery()).build();
+        List<Rezervacija> rezervacije = rezervacijaZrno.getRezervacije(query);
         return Response.status(Response.Status.OK).entity(rezervacije).build();
     }
 

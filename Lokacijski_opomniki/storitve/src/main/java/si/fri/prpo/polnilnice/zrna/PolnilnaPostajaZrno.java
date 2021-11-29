@@ -1,7 +1,10 @@
 package si.fri.prpo.polnilnice.zrna;
 
+import com.kumuluz.ee.rest.beans.QueryParameters;
+import com.kumuluz.ee.rest.utils.JPAUtils;
 import org.jboss.logging.Logger;
 import si.fri.prpo.polnilnice.entitete.PolnilnaPostaja;
+import si.fri.prpo.polnilnice.entitete.Uporabnik;
 import si.fri.prpo.polnilnice.interceptor.BeleziKlice;
 
 import javax.annotation.PostConstruct;
@@ -45,9 +48,8 @@ public class PolnilnaPostajaZrno {
 
     // READ
     @BeleziKlice
-    public List<PolnilnaPostaja> getPolnilnePostaje() {
-        TypedQuery<PolnilnaPostaja> query = em.createNamedQuery("PolnilnaPostaja.getAll", PolnilnaPostaja.class);
-        List<PolnilnaPostaja> results = query.getResultList();
+    public List<PolnilnaPostaja> getPolnilnePostaje(QueryParameters query) {
+       List<PolnilnaPostaja> results = JPAUtils.queryEntities(em, PolnilnaPostaja.class, query);
 
         return results;
     }

@@ -1,6 +1,7 @@
 package si.fri.prpo.polnilnice.api.v1.viri;
 
 import com.kumuluz.ee.cors.annotations.CrossOrigin;
+import com.kumuluz.ee.rest.beans.QueryParameters;
 import org.jboss.logging.Logger;
 import si.fri.prpo.polnilnice.DTO.PolnilnaPostajaDTO;
 import si.fri.prpo.polnilnice.entitete.PolnilnaPostaja;
@@ -34,7 +35,8 @@ public class PolnilnaPostajaVir {
 
     @GET
     public Response getAllChargingStations() {
-        List<PolnilnaPostaja> polnilnepostaje = polnilnaPostajaZrno.getPolnilnePostaje();
+        QueryParameters query = QueryParameters.query(uriInfo.getRequestUri().getQuery()).build();
+        List<PolnilnaPostaja> polnilnepostaje = polnilnaPostajaZrno.getPolnilnePostaje(query);
         return Response.status(Response.Status.OK).entity(polnilnepostaje).build();
     }
 

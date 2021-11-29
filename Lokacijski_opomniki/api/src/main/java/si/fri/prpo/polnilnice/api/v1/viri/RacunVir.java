@@ -1,6 +1,7 @@
 package si.fri.prpo.polnilnice.api.v1.viri;
 
 import com.kumuluz.ee.cors.annotations.CrossOrigin;
+import com.kumuluz.ee.rest.beans.QueryParameters;
 import org.jboss.logging.Logger;
 import si.fri.prpo.polnilnice.DTO.RacunDTO;
 import si.fri.prpo.polnilnice.entitete.Racun;
@@ -34,7 +35,8 @@ public class RacunVir {
 
     @GET
     public Response getAllReceipts() {
-        List<Racun> racuni = racunZrno.getRacuni();
+        QueryParameters query = QueryParameters.query(uriInfo.getRequestUri().getQuery()).build();
+        List<Racun> racuni = racunZrno.getRacuni(query);
         return Response.status(Response.Status.OK).entity(racuni).build();
     }
 

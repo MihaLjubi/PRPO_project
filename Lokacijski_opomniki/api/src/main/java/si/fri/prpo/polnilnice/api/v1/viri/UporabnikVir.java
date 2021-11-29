@@ -34,7 +34,8 @@ public class UporabnikVir {
 
     @GET
     public Response getAllUsers() {
-        List<Uporabnik> users = uporabnikZrno.getUporabniki();
+        QueryParameters query = QueryParameters.query(uriInfo.getRequestUri().getQuery()).build();
+        List<Uporabnik> users = uporabnikZrno.getUporabniki(query);
         return Response.status(Response.Status.OK).entity(users).build();
     }
 
