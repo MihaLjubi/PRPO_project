@@ -2,6 +2,9 @@ package si.fri.prpo.polnilnice.api.v1.viri;
 
 import com.kumuluz.ee.cors.annotations.CrossOrigin;
 import com.kumuluz.ee.rest.beans.QueryParameters;
+import org.eclipse.microprofile.openapi.annotations.Operation;
+import org.eclipse.microprofile.openapi.annotations.parameters.Parameter;
+import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 import org.jboss.logging.Logger;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -33,14 +36,19 @@ public class UporabnikVir {
     private UporabnikZrno uporabnikZrno;
 
     @GET
+    @Operation(summary="returns the user provided by id")
+    @APIResponse(responseCode = "200", description = "Request was successful")
     public Response getAllUsers() {
-        List<Uporabnik> users = uporabnikZrno.getUporabniki();
+        QueryParameters query = QueryParameters.query(uriInfo.getRequestUri().getQuery()).build();
+        List<Uporabnik> users = uporabnikZrno.getUporabniki(query);
         return Response.status(Response.Status.OK).entity(users).build();
     }
 
     @GET
     @Path("{id}")
-    public Response getUser(@PathParam("id") Integer id) {
+    @Operation(summary="returns the user provided by id")
+    @APIResponse(responseCode = "200", description = "Request was successful")
+    public Response getUser(@Parameter(name="id", required = true, allowEmptyValue = false) @PathParam("id") Integer id) {
         Uporabnik user = uporabnikZrno.getById(id);
         if(user != null) {
             return Response.status(Response.Status.OK).entity(user).build();
@@ -50,7 +58,9 @@ public class UporabnikVir {
     }
 
     @POST
-    public Response addUser(Uporabnik user) {
+    @Operation(summary="creates a new user and saves to db")
+    @APIResponse(responseCode = "200", description = "Request was successful")
+    public Response addUser(@Parameter(name="id", required = true, allowEmptyValue = false) Uporabnik user) {
         Uporabnik u = uporabnikZrno.createUser(user);
         if(user != null) {
             return Response.status(Response.Status.OK).entity(user).build();
@@ -61,6 +71,8 @@ public class UporabnikVir {
 
     @PUT
     @Path("{id}")
+    @Operation(summary="updates info of the user provided by id")
+    @APIResponse(responseCode = "200", description = "Request was successful")
     public Response updateUser(@PathParam("id") Integer id, Uporabnik user) {
         Uporabnik u = uporabnikZrno.updateUser(id, user);
         if(u != null) {
@@ -72,7 +84,9 @@ public class UporabnikVir {
 
     @DELETE
     @Path("{id}")
-    public Response deleteUser(@PathParam("id") Integer id) {
+    @Operation(summary="delets teh user provided by id from db")
+    @APIResponse(responseCode = "200", description = "Request was successful")
+    public Response deleteUser(@Parameter(name="id", required = true, allowEmptyValue = false) @PathParam("id") Integer id) {
         var result = uporabnikZrno.deleteUser(id);
         if(result) {
             return Response.status(Response.Status.OK).entity(result).build();

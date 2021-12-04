@@ -45,7 +45,7 @@ public class JPAServlet extends HttpServlet {
         test.setPriimek("Brzina");
         test.setUporabnisko_ime("iAmSpeed");
 
-        List<Uporabnik> uporabniki = uporabnikZrno.getUporabniki();
+        /*List<Uporabnik> uporabniki = uporabnikZrno.getUporabniki();
         Uporabnik userbyid = uporabnikZrno.getById(1);
         test.setIme("Brzomir");
         uporabnikZrno.updateUser(3, test);

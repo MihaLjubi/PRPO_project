@@ -1,5 +1,7 @@
 package si.fri.prpo.polnilnice.zrna;
 
+import com.kumuluz.ee.rest.beans.QueryParameters;
+import com.kumuluz.ee.rest.utils.JPAUtils;
 import org.jboss.logging.Logger;
 import si.fri.prpo.polnilnice.entitete.Uporabnik;
 import si.fri.prpo.polnilnice.interceptor.BeleziKlice;
@@ -49,9 +51,8 @@ public class UporabnikZrno {
 
     // READ
     @BeleziKlice
-    public List<Uporabnik> getUporabniki() {
-        TypedQuery<Uporabnik> query = em.createNamedQuery("Uporabnik.getAll", Uporabnik.class);
-        List<Uporabnik> results = query.getResultList();
+    public List<Uporabnik> getUporabniki(QueryParameters query) {
+       List<Uporabnik> results = JPAUtils.queryEntities(em, Uporabnik.class, query);
 
         return results;
     }
@@ -88,20 +89,20 @@ public class UporabnikZrno {
     }
 
     //namedquery metoda
-    public List<Uporabnik> getByUsername(String username) {
+    public Uporabnik getByUsername(String username) {
         TypedQuery<Uporabnik> query = em.createNamedQuery("Uporabnik.getByUsername", Uporabnik.class);
         query.setParameter("username", username);
-        List<Uporabnik> results = query.getResultList();
+        Uporabnik result = (Uporabnik) query.getResultList();
 
-        return results;
+        return result;
     }
 
-    public List<Uporabnik> getBySurname(String surname) {
+    public Uporabnik getBySurname(String surname) {
         TypedQuery<Uporabnik> query = em.createNamedQuery("Uporabnik.getBySurname", Uporabnik.class);
         query.setParameter("surname", surname);
-        List<Uporabnik> results = query.getResultList();
+        Uporabnik result = (Uporabnik) query.getResultList();
 
-        return results;
+        return result;
     }
 
     public List<Uporabnik> getUporabnikiCriteria() {

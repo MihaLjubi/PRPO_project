@@ -1,6 +1,11 @@
 package si.fri.prpo.polnilnice.api.v1.viri;
 
 import com.kumuluz.ee.cors.annotations.CrossOrigin;
+import com.kumuluz.ee.rest.beans.QueryParameters;
+import com.kumuluz.ee.rest.utils.JPAUtils;
+import org.eclipse.microprofile.openapi.annotations.Operation;
+import org.eclipse.microprofile.openapi.annotations.parameters.Parameter;
+import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 import org.jboss.logging.Logger;
 import si.fri.prpo.polnilnice.DTO.RezervacijaDTO;
 import si.fri.prpo.polnilnice.entitete.Rezervacija;
@@ -34,14 +39,20 @@ public class RezervacijaVir {
     private UpravljanjePolnilnihPostajZrno upravljanjePolnilnihPostajZrno;
 
     @GET
+    @Operation(summary="returns all reservations")
+    @APIResponse(responseCode = "200", description = "Request was successful")
     public Response getAllReservations() {
-        List<Rezervacija> rezervacije = rezervacijaZrno.getRezervacije();
+        QueryParameters query = QueryParameters.query(uriInfo.getRequestUri().getQuery()).build();
+        List<Rezervacija> rezervacije = rezervacijaZrno.getRezervacije(query);
+
         return Response.status(Response.Status.OK).entity(rezervacije).build();
     }
 
     @GET
     @Path("{id}")
-    public Response getReservation(@PathParam("id") Integer id) {
+    @Operation(summary="returns reservations with provided id")
+    @APIResponse(responseCode = "200", description = "Request was successful")
+    public Response getReservation(@Parameter(name="id", required = true, allowEmptyValue = false) @PathParam("id") Integer id) {
         Rezervacija reservation = rezervacijaZrno.getById(id);
         if(reservation != null) {
             return Response.status(Response.Status.OK).entity(reservation).build();
@@ -51,7 +62,9 @@ public class RezervacijaVir {
     }
 
     @POST
-    public Response addReservation(RezervacijaDTO rezervacijaDTO) {
+    @Operation(summary="adds a reservation to db")
+    @APIResponse(responseCode = "200", description = "Request was successful")
+    public Response addReservation(@Parameter(name="id", required = true, allowEmptyValue = false) RezervacijaDTO rezervacijaDTO) {
         Rezervacija r = upravljanjePolnilnihPostajZrno.rezervacijaPolnilnePostaje(rezervacijaDTO);
         if(r != null) {
             return Response.status(Response.Status.OK).entity(r).build();
@@ -62,7 +75,9 @@ public class RezervacijaVir {
 
     @PUT
     @Path("{id}")
-    public Response updateReservation(@PathParam("id") Integer id, Rezervacija reservation) {
+    @Operation(summary="updates info of a reservation with provided id")
+    @APIResponse(responseCode = "200", description = "Request was successful")
+    public Response updateReservation(@Parameter(name="id", required = true, allowEmptyValue = false) @PathParam("id") Integer id, Rezervacija reservation) {
         Rezervacija r = rezervacijaZrno.updateReservation(id, reservation);
         if(r != null) {
             return Response.status(Response.Status.OK).entity(r).build();
@@ -73,7 +88,9 @@ public class RezervacijaVir {
 
     @DELETE
     @Path("{id}")
-    public Response deleteReservation(@PathParam("id") Integer id) {
+    @Operation(summary="deletes a reservation with provided id")
+    @APIResponse(responseCode = "200", description = "Request was successful")
+    public Response deleteReservation(@Parameter(name="id", required = true, allowEmptyValue = false) @PathParam("id") Integer id) {
         var result = rezervacijaZrno.deleteReservation(id);
         if(result) {
             return Response.status(Response.Status.OK).build();

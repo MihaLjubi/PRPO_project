@@ -1,6 +1,10 @@
 package si.fri.prpo.polnilnice.api.v1.viri;
 
 import com.kumuluz.ee.cors.annotations.CrossOrigin;
+import com.kumuluz.ee.rest.beans.QueryParameters;
+import org.eclipse.microprofile.openapi.annotations.Operation;
+import org.eclipse.microprofile.openapi.annotations.parameters.Parameter;
+import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 import org.jboss.logging.Logger;
 import si.fri.prpo.polnilnice.DTO.RacunDTO;
 import si.fri.prpo.polnilnice.entitete.Racun;
@@ -33,14 +37,19 @@ public class RacunVir {
     private UpravljanjePolnilnihPostajZrno upravljanjePolnilnihPostajZrno;
 
     @GET
+    @Operation(summary="returns all receipts")
+    @APIResponse(responseCode = "200", description = "Request was successful")
     public Response getAllReceipts() {
-        List<Racun> racuni = racunZrno.getRacuni();
+        QueryParameters query = QueryParameters.query(uriInfo.getRequestUri().getQuery()).build();
+        List<Racun> racuni = racunZrno.getRacuni(query);
         return Response.status(Response.Status.OK).entity(racuni).build();
     }
 
     @GET
     @Path("{id}")
-    public Response getReceipt(@PathParam("id") Integer id) {
+    @Operation(summary="returns the receipt by provided id")
+    @APIResponse(responseCode = "200", description = "Request was successful")
+    public Response getReceipt(@Parameter(name="id", required = true, allowEmptyValue = false) @PathParam("id") Integer id) {
         Racun racun = racunZrno.getById(id);
         if(racun != null) {
             return Response.status(Response.Status.OK).entity(racun).build();
@@ -50,7 +59,9 @@ public class RacunVir {
     }
 
     @POST
-    public Response addRacun(RacunDTO racunDTO) {
+    @Operation(summary="creates a receipt and saves to db")
+    @APIResponse(responseCode = "200", description = "Request was successful")
+    public Response addRacun(@Parameter(name="id", required = true, allowEmptyValue = false) RacunDTO racunDTO) {
         Racun r = upravljanjePolnilnihPostajZrno.izdajRacun(racunDTO);
         if(r != null) {
             return Response.status(Response.Status.OK).entity(r).build();
@@ -61,7 +72,9 @@ public class RacunVir {
 
     @PUT
     @Path("{id}")
-    public Response updateRacun(@PathParam("id") Integer id, Racun racun) {
+    @Operation(summary="updates info of the receipt provided by id")
+    @APIResponse(responseCode = "200", description = "Request was successful")
+    public Response updateRacun(@Parameter(name="id", required = true, allowEmptyValue = false) @PathParam("id") Integer id, Racun racun) {
         Racun r = racunZrno.updateRacun(id, racun);
         if(r != null) {
             return Response.status(Response.Status.OK).entity(r).build();
@@ -72,7 +85,9 @@ public class RacunVir {
 
     @DELETE
     @Path("{id}")
-    public Response deleteRacun(@PathParam("id") Integer id) {
+    @Operation(summary="deletes the receipt provided by id")
+    @APIResponse(responseCode = "200", description = "Request was successful")
+    public Response deleteRacun(@Parameter(name="id", required = true, allowEmptyValue = false) @PathParam("id") Integer id) {
         var result = racunZrno.deleteRacun(id);
         if(result) {
             return Response.status(Response.Status.OK).build();

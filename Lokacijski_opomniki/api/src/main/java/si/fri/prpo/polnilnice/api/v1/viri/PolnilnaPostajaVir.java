@@ -1,6 +1,10 @@
 package si.fri.prpo.polnilnice.api.v1.viri;
 
 import com.kumuluz.ee.cors.annotations.CrossOrigin;
+import com.kumuluz.ee.rest.beans.QueryParameters;
+import org.eclipse.microprofile.openapi.annotations.Operation;
+import org.eclipse.microprofile.openapi.annotations.parameters.Parameter;
+import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 import org.jboss.logging.Logger;
 import si.fri.prpo.polnilnice.DTO.PolnilnaPostajaDTO;
 import si.fri.prpo.polnilnice.entitete.PolnilnaPostaja;
@@ -33,14 +37,19 @@ public class PolnilnaPostajaVir {
     private UpravljanjePolnilnihPostajZrno upravljanjePolnilnihPostajZrno;
 
     @GET
+    @Operation(summary="returns list of all charging stations")
+    @APIResponse(responseCode = "200", description = "Request was successful")
     public Response getAllChargingStations() {
-        List<PolnilnaPostaja> polnilnepostaje = polnilnaPostajaZrno.getPolnilnePostaje();
+        QueryParameters query = QueryParameters.query(uriInfo.getRequestUri().getQuery()).build();
+        List<PolnilnaPostaja> polnilnepostaje = polnilnaPostajaZrno.getPolnilnePostaje(query);
         return Response.status(Response.Status.OK).entity(polnilnepostaje).build();
     }
 
     @GET
     @Path("{id}")
-    public Response getChargingStation(@PathParam("id") Integer id) {
+    @Operation(summary="returns the charging station provided by id")
+    @APIResponse(responseCode = "200", description = "Request was successful")
+    public Response getChargingStation(@Parameter(name="id", required = true, allowEmptyValue = false) @PathParam("id") Integer id) {
         PolnilnaPostaja pp = polnilnaPostajaZrno.getById(id);
         if(pp != null) {
             return Response.status(Response.Status.OK).entity(pp).build();
@@ -50,7 +59,9 @@ public class PolnilnaPostajaVir {
     }
 
     @POST
-    public Response addChargingStation(PolnilnaPostajaDTO polnilnaPostajaDTO) {
+    @Operation(summary="adds new charging station to db")
+    @APIResponse(responseCode = "200", description = "Request was successful")
+    public Response addChargingStation(@Parameter(name="id", required = true, allowEmptyValue = false) PolnilnaPostajaDTO polnilnaPostajaDTO) {
         PolnilnaPostaja pp = upravljanjePolnilnihPostajZrno.ustvariPolnilnoPostajo(polnilnaPostajaDTO);
         if(pp != null) {
             return Response.status(Response.Status.OK).entity(pp).build();
@@ -61,6 +72,8 @@ public class PolnilnaPostajaVir {
 
     @PUT
     @Path("{id}")
+    @Operation(summary="updates info of the charging station provided by id")
+    @APIResponse(responseCode = "200", description = "Request was successful")
     public Response updateChargingStation(@PathParam("id") Integer id, PolnilnaPostaja polnilnaPostaja) {
         PolnilnaPostaja pp = polnilnaPostajaZrno.updateChargingStation(id, polnilnaPostaja);
         if(pp != null) {
@@ -72,7 +85,9 @@ public class PolnilnaPostajaVir {
 
     @DELETE
     @Path("{id}")
-    public Response deleteChargingStation(@PathParam("id") Integer id) {
+    @Operation(summary="deletes the charging station provided by id")
+    @APIResponse(responseCode = "200", description = "Request was successful")
+    public Response deleteChargingStation(@Parameter(name="id", required = true, allowEmptyValue = false) @PathParam("id") Integer id) {
         boolean result = polnilnaPostajaZrno.deleteChargingStation(id);
         if(result) {
             return Response.status(Response.Status.OK).build();

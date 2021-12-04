@@ -1,5 +1,7 @@
 package si.fri.prpo.polnilnice.zrna;
 
+import com.kumuluz.ee.rest.beans.QueryParameters;
+import com.kumuluz.ee.rest.utils.JPAUtils;
 import org.jboss.logging.Logger;
 import si.fri.prpo.polnilnice.entitete.PolnilnaPostaja;
 import si.fri.prpo.polnilnice.entitete.Rezervacija;
@@ -47,9 +49,8 @@ public class RezervacijaZrno {
 
     // READ
     @BeleziKlice
-    public List<Rezervacija> getRezervacije() {
-        TypedQuery<Rezervacija> query = em.createNamedQuery("Rezervacija.getAll", Rezervacija.class);
-        List<Rezervacija> results = query.getResultList();
+    public List<Rezervacija> getRezervacije(QueryParameters query) {
+       List<Rezervacija> results = JPAUtils.queryEntities(em, Rezervacija.class, query);
 
         return results;
     }
