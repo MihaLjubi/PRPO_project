@@ -89,7 +89,7 @@ public class PolnilnaPostajaVir {
                             schema = @Schema(implementation = PolnilnaPostaja.class)
                     )
             ),
-            @APIResponse(responseCode = "405", description = "Authentication error")
+            @APIResponse(responseCode = "405", description = "Validation error")
     })
     @POST
     public Response addChargingStation(@Parameter(name="id", required = true, allowEmptyValue = false) PolnilnaPostajaDTO polnilnaPostajaDTO) {

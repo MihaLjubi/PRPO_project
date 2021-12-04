@@ -91,7 +91,7 @@ public class RezervacijaVir {
                             schema = @Schema(implementation = Rezervacija.class)
                     )
             ),
-            @APIResponse(responseCode = "405", description = "Authentication error")
+            @APIResponse(responseCode = "405", description = "Validation error")
     })
     @POST
     public Response addReservation(@Parameter(name="id", required = true, allowEmptyValue = false) RezervacijaDTO rezervacijaDTO) {

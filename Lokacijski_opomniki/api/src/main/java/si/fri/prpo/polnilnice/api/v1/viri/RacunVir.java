@@ -89,7 +89,7 @@ public class RacunVir {
                             schema = @Schema(implementation = Racun.class)
                     )
             ),
-            @APIResponse(responseCode = "405", description = "Authentication error")
+            @APIResponse(responseCode = "405", description = "Validation error")
     })
     @POST
     public Response addRacun(@Parameter(name="id", required = true, allowEmptyValue = false) RacunDTO racunDTO) {
