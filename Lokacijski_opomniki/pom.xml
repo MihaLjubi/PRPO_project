@@ -22,6 +22,7 @@
         <postgresql.version>42.2.22</postgresql.version>
         <kumuluzee-rest.version>1.5.1</kumuluzee-rest.version>
         <kumuluzee-cors.version>1.0.6</kumuluzee-cors.version>
+        <kumuluzee-openapi-mp.version>1.4.0</kumuluzee-openapi-mp.version>
     </properties>
 
     <dependencyManagement>
@@ -33,11 +34,7 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
-            <dependency>
-                <groupId>com.kumuluz.ee.openapi</groupId>
-                <artifactId>kumuluzee-openapi-mp</artifactId>
-                <version>${kumuluzee-openapi.version}</version>
-            </dependency>
+
             <dependency>
                 <groupId>org.postgresql</groupId>
                 <artifactId>postgresql</artifactId>
