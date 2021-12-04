@@ -36,9 +36,8 @@ public class PolnilnaPostaja {
     private Integer cena;
 
     @JsonbTransient
-    @OneToMany(mappedBy = "PolnilnaPostaja", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "id_rezervacija")
-    private List<Rezervacija>  rezervacije = new ArrayList<>();
+    @OneToMany(mappedBy = "polnilnaPostaja", cascade = CascadeType.ALL)
+    private List<Rezervacija>  rezervacije;
 
     public Integer getId_polnilna_postaja() {
         return id_polnilna_postaja;
