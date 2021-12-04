@@ -5,6 +5,7 @@ import com.kumuluz.ee.rest.beans.QueryParameters;
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.parameters.Parameter;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
+import org.eclipse.microprofile.openapi.annotations.responses.APIResponses;
 import org.jboss.logging.Logger;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -29,6 +30,7 @@ import java.util.List;
 public class UporabnikVir {
 
     private Logger logger = Logger.getLogger(UporabnikVir.class.getName());
+
     @Context
     protected UriInfo uriInfo;
 
@@ -36,11 +38,17 @@ public class UporabnikVir {
     private UporabnikZrno uporabnikZrno;
 
     @GET
-    @Operation(summary="returns the user provided by id")
-    @APIResponse(responseCode = "200", description = "Request was successful")
+    @Operation(description = "Returns list of users", summary="User list")
+    @APIResponses({
+        @APIResponse(responseCode = "200",
+                description = "Success"
+        ),
+        @APIResponse(responseCode = "404", description = "Useres not found")
+    })
     public Response getAllUsers() {
         QueryParameters query = QueryParameters.query(uriInfo.getRequestUri().getQuery()).build();
         List<Uporabnik> users = uporabnikZrno.getUporabniki(query);
+        Long countUporabniki = uporabnikZrno.getUporabnikiCount(query);
         return Response.status(Response.Status.OK).entity(users).build();
     }
 

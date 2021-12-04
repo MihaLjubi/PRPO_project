@@ -6,6 +6,7 @@ import com.kumuluz.ee.rest.utils.JPAUtils;
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.parameters.Parameter;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
+import org.eclipse.microprofile.openapi.annotations.responses.APIResponses;
 import org.jboss.logging.Logger;
 import si.fri.prpo.polnilnice.DTO.RezervacijaDTO;
 import si.fri.prpo.polnilnice.entitete.Rezervacija;
@@ -39,12 +40,17 @@ public class RezervacijaVir {
     private UpravljanjePolnilnihPostajZrno upravljanjePolnilnihPostajZrno;
 
     @GET
-    @Operation(summary="returns all reservations")
-    @APIResponse(responseCode = "200", description = "Request was successful")
+    @Operation(description = "Returns list of reservations", summary="Reservation list")
+    @APIResponses({
+            @APIResponse(responseCode = "200",
+                    description = "Success"
+            ),
+            @APIResponse(responseCode = "404", description = "Reservations not found")
+    })
     public Response getAllReservations() {
         QueryParameters query = QueryParameters.query(uriInfo.getRequestUri().getQuery()).build();
         List<Rezervacija> rezervacije = rezervacijaZrno.getRezervacije(query);
-
+        Long countRezervacije = rezervacijaZrno.getRezervacijeCount(query);
         return Response.status(Response.Status.OK).entity(rezervacije).build();
     }
 

@@ -57,6 +57,10 @@ public class UporabnikZrno {
         return results;
     }
 
+    public Long getUporabnikiCount(QueryParameters query) {
+        return JPAUtils.queryEntitiesCount(em, Uporabnik.class, query);
+    }
+
     @BeleziKlice
     public Uporabnik getById(Integer id) {
         TypedQuery<Uporabnik> query = em.createNamedQuery("Uporabnik.getById", Uporabnik.class);

@@ -3,9 +3,7 @@ package si.fri.prpo.polnilnice.zrna;
 import com.kumuluz.ee.rest.beans.QueryParameters;
 import com.kumuluz.ee.rest.utils.JPAUtils;
 import org.jboss.logging.Logger;
-import si.fri.prpo.polnilnice.entitete.Racun;
-import si.fri.prpo.polnilnice.entitete.Rezervacija;
-import si.fri.prpo.polnilnice.entitete.PolnilnaPostaja;
+import si.fri.prpo.polnilnice.entitete.*;
 import si.fri.prpo.polnilnice.entitete.Rezervacija;
 import si.fri.prpo.polnilnice.interceptor.BeleziKlice;
 
@@ -52,6 +50,10 @@ public class RacunZrno {
     public List<Racun> getRacuni(QueryParameters query) {
        List<Racun> results = JPAUtils.queryEntities(em, Racun.class, query);
         return results;
+    }
+
+    public Long getRacuniCount(QueryParameters query) {
+        return JPAUtils.queryEntitiesCount(em, Uporabnik.class, query);
     }
 
     @BeleziKlice

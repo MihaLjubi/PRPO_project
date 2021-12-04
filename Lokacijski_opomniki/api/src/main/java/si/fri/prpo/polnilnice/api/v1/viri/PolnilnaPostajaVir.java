@@ -5,6 +5,7 @@ import com.kumuluz.ee.rest.beans.QueryParameters;
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.parameters.Parameter;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
+import org.eclipse.microprofile.openapi.annotations.responses.APIResponses;
 import org.jboss.logging.Logger;
 import si.fri.prpo.polnilnice.DTO.PolnilnaPostajaDTO;
 import si.fri.prpo.polnilnice.entitete.PolnilnaPostaja;
@@ -37,11 +38,17 @@ public class PolnilnaPostajaVir {
     private UpravljanjePolnilnihPostajZrno upravljanjePolnilnihPostajZrno;
 
     @GET
-    @Operation(summary="returns list of all charging stations")
-    @APIResponse(responseCode = "200", description = "Request was successful")
+    @Operation(description = "Returns list of charging stations", summary="Charging station list")
+    @APIResponses({
+            @APIResponse(responseCode = "200",
+                    description = "Success"
+            ),
+            @APIResponse(responseCode = "404", description = "Charging stations not found")
+    })
     public Response getAllChargingStations() {
         QueryParameters query = QueryParameters.query(uriInfo.getRequestUri().getQuery()).build();
         List<PolnilnaPostaja> polnilnepostaje = polnilnaPostajaZrno.getPolnilnePostaje(query);
+        Long countPolnilnePostaje = polnilnaPostajaZrno.getPolnilnePostajeCount(query);
         return Response.status(Response.Status.OK).entity(polnilnepostaje).build();
     }
 

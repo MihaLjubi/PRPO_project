@@ -54,6 +54,10 @@ public class PolnilnaPostajaZrno {
         return results;
     }
 
+    public Long getPolnilnePostajeCount(QueryParameters query) {
+        return JPAUtils.queryEntitiesCount(em, Uporabnik.class, query);
+    }
+
     @BeleziKlice
     public PolnilnaPostaja getById(Integer id) {
         TypedQuery<PolnilnaPostaja> query = em.createNamedQuery("PolnilnaPostaja.getById", PolnilnaPostaja.class);
