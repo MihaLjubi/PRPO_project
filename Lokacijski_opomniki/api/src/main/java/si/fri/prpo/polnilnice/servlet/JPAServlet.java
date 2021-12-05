@@ -40,13 +40,12 @@ public class JPAServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        Uporabnik test = new Uporabnik();
+        /*Uporabnik test = new Uporabnik();
         test.setIme("Cene");
         test.setPriimek("Brzina");
         test.setUporabnisko_ime("iAmSpeed");
 
-        /*List<Uporabnik> uporabniki = uporabnikZrno.getUporabniki();
-        Uporabnik userbyid = uporabnikZrno.getById(1);
+        List<Uporabnik> uporabniki = uporabnikZrno.getUporabniki();
         test.setIme("Brzomir");
         uporabnikZrno.updateUser(3, test);
         List<Uporabnik> usersCrit = uporabnikZrno.getUporabnikiCriteria();
@@ -80,10 +79,12 @@ public class JPAServlet extends HttpServlet {
         test2.setStatus(status);
 
         upravljanjePolnilnihPostajZrno.ustvariPolnilnoPostajo(test2);
+        */
 
         /*
+        Uporabnik userbyid = uporabnikZrno.getById(1);
         Timestamp st = new Timestamp(2021, 5, 5, 12, 30, 0, 0);
-        Timestamp se = new Timestamp(2021, 5, 5, 18, 30, 0, 0);
+        Timestamp se = new Timestamp(2021, 5, 5, 11, 30, 0, 0);
         RezervacijaDTO r = new RezervacijaDTO();
         r.setPolnjenjeZacetek(st);
         r.setPolnjenjeKonec(se);

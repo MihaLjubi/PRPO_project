@@ -2,7 +2,9 @@ package si.fri.prpo.polnilnice.DTO;
 
 import si.fri.prpo.polnilnice.entitete.Uporabnik;
 import si.fri.prpo.polnilnice.entitete.PolnilnaPostaja;
+import si.fri.prpo.polnilnice.izjeme.InvalidDateException;
 
+import javax.ws.rs.core.Response;
 import java.sql.Timestamp;
 
 public class RezervacijaDTO extends BaseDTO {
@@ -15,6 +17,8 @@ public class RezervacijaDTO extends BaseDTO {
     public boolean validate() {
         if(uporabnik == null || polnilnaPostaja == null || polnjenjeZacetek == null || polnjenjeKonec == null){
             return false;
+        } else if (polnjenjeZacetek.after(polnjenjeKonec)) {
+            throw new InvalidDateException("Zacetek rezervacije mora biti pred koncem.");
         }
 
         return true;
