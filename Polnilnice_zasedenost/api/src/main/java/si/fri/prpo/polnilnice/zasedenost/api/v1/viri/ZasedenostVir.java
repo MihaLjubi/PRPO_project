@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 @CrossOrigin(supportedMethods = "GET, POST, PUT, DELETE, HEAD, OPTIONS")
 public class ZasedenostVir {
 
-    private Logger log = Logger.getLogger(ZasedenostVir.class.getName());
+    private Logger logger = Logger.getLogger(ZasedenostVir.class.getName());
 
     private Map<PolnilnaPostajaDTO, Integer> zasedenost;
 
@@ -28,7 +28,13 @@ public class ZasedenostVir {
         zasedenost = new HashMap<>();
         zasedenost.put(new PolnilnaPostajaDTO("Ljubljana"), 13);
         zasedenost.put(new PolnilnaPostajaDTO("Maribor"), 6);
-        zasedenost.put(new PolnilnaPostajaDTO("Velenje"), 5);
+        zasedenost.put(new PolnilnaPostajaDTO("Velenje"), 7);
+        zasedenost.put(new PolnilnaPostajaDTO("Burek"), 3);
+
+        System.out.println("Izpis");
+        for (Map.Entry me : zasedenost.entrySet()) {
+            System.out.println("key " + me.getKey() + " value " + me.getValue());
+        }
     }
 
     @GET
@@ -42,13 +48,21 @@ public class ZasedenostVir {
 
     @POST
     public Response dodajVnos(PolnilnaPostajaDTO polnilnaPostaja) {
+        System.out.println(polnilnaPostaja);
+        System.out.println(polnilnaPostaja.getLokacija());
         if (!zasedenost.containsKey(polnilnaPostaja)) {
+            logger.info("dodan nov vnos: " + polnilnaPostaja.getLokacija());
             zasedenost.put(polnilnaPostaja, 1);
         } else {
+            logger.info("prej: " + zasedenost.get(polnilnaPostaja));
             zasedenost.put(polnilnaPostaja, zasedenost.get(polnilnaPostaja) + 1);
+            logger.info("posodobljeno: " + zasedenost.get(polnilnaPostaja));
         }
 
-        log.info(String.valueOf(zasedenost.get(polnilnaPostaja)));
-        return Response.ok().build();
+        for (Map.Entry me : zasedenost.entrySet()) {
+            System.out.println("key " + me.getKey() + " value " + me.getValue());
+        }
+
+        return Response.status(Response.Status.OK).build();
     }
 }

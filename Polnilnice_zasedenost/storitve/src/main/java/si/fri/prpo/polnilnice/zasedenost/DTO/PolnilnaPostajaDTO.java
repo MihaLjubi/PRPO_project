@@ -11,6 +11,19 @@ public class PolnilnaPostajaDTO {
         this.lokacija = lokacija;
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null || !obj.getClass().isAssignableFrom(PolnilnaPostajaDTO.class))
+            return false;
+
+        return this.getLokacija().equals(((PolnilnaPostajaDTO) obj).getLokacija());
+    }
+
+    @Override
+    public int hashCode() {
+        return this.lokacija.hashCode();
+    }
+
     public String getLokacija() {
         return lokacija;
     }
