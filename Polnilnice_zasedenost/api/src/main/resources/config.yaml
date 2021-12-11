@@ -1,0 +1,5 @@
+kumuluzee:
+  name: polnilnice-zasedenost
+  version: 1.0.0
+  env:
+    name: dev

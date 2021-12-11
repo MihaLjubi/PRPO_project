@@ -17,6 +17,8 @@ buildNumber.properties
 
 ## Directory-based project format:
 Servlet/.idea/
+Lokacijski_opomniki/.idea/
+Polnilnice_zasedenost/.idea/
 # if you remove the above rule, at least ignore the following:
 
 # User-specific stuff:
