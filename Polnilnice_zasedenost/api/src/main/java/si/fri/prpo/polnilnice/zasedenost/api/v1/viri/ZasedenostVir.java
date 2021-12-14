@@ -4,6 +4,7 @@ import com.kumuluz.ee.cors.annotations.CrossOrigin;
 import si.fri.prpo.polnilnice.zasedenost.DTO.PolnilnaPostajaDTO;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import javax.enterprise.context.ApplicationScoped;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -29,12 +30,16 @@ public class ZasedenostVir {
         zasedenost.put(new PolnilnaPostajaDTO("Ljubljana"), 13);
         zasedenost.put(new PolnilnaPostajaDTO("Maribor"), 6);
         zasedenost.put(new PolnilnaPostajaDTO("Velenje"), 7);
-        zasedenost.put(new PolnilnaPostajaDTO("Burek"), 3);
 
         System.out.println("Izpis");
         for (Map.Entry me : zasedenost.entrySet()) {
             System.out.println("key " + me.getKey() + " value " + me.getValue());
         }
+    }
+
+    @PreDestroy
+    private void destroy() {
+        logger.info("Unicenje " + ZasedenostVir.class.getSimpleName());
     }
 
     @GET
