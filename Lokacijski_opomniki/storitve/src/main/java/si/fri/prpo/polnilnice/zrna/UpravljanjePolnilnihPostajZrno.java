@@ -1,6 +1,8 @@
 package si.fri.prpo.polnilnice.zrna;
 
+import com.kumuluz.ee.configuration.utils.ConfigurationUtil;
 import si.fri.prpo.polnilnice.DTO.PolnilnaPostajaDTO;
+import si.fri.prpo.polnilnice.DTO.PolnilnicaDTO;
 import si.fri.prpo.polnilnice.DTO.RacunDTO;
 import si.fri.prpo.polnilnice.DTO.RezervacijaDTO;
 import si.fri.prpo.polnilnice.entitete.PolnilnaPostaja;
@@ -11,10 +13,11 @@ import si.fri.prpo.polnilnice.interceptor.BeleziKlice;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
-import java.sql.Time;
-import java.sql.Timestamp;
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.client.Entity;
+import javax.ws.rs.core.MediaType;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
@@ -31,11 +34,17 @@ public class UpravljanjePolnilnihPostajZrno {
     private RacunZrno racunZrno;
 
     private Logger logger = Logger.getLogger(UpravljanjePolnilnihPostajZrno.class.getName());
+    private Client client;
+    private String baseUrl;
 
     @PostConstruct
     private void init() {
         logger.info("Inicializacija zrna " + UpravljanjePolnilnihPostajZrno.class.getName());
         logger.info("Zrno id: " + UUID.randomUUID().toString());
+
+        client = ClientBuilder.newClient();
+        baseUrl = ConfigurationUtil.getInstance().get("integration.zasedenost.base-url")
+                .orElse("http://localhost:8081/v1");
     }
 
     @PreDestroy
@@ -54,6 +63,8 @@ public class UpravljanjePolnilnihPostajZrno {
         reservation.setPolnilnaPostaja(rezervacijaDTO.getPolnilnaPostaja());
         reservation.setPolnjenje_zacetek(rezervacijaDTO.getPolnjenjeZacetek());
         reservation.setPolnjenje_konec(rezervacijaDTO.getPolnjenjeKonec());
+
+        posodobiZasedenostPolnilnic(reservation.getPolnilnaPostaja());
 
         Rezervacija r = rezervacijaZrno.createReservation(reservation);
         return r;
@@ -88,5 +99,17 @@ public class UpravljanjePolnilnihPostajZrno {
 
         polnilnaPostajaZrno.createChargingStation(pp);
         return pp;
+    }
+
+    private void posodobiZasedenostPolnilnic(PolnilnaPostaja polnilnaPostaja) {
+        try {
+            var pol = new PolnilnicaDTO(polnilnaPostaja.getLokacija());
+            System.out.println(pol);
+            System.out.println(pol.getLokacija());
+            client.target(baseUrl + "/zasedenost").request(MediaType.APPLICATION_JSON)
+                    .post(Entity.json(pol));
+        } catch (Exception e) {
+            logger.severe(e.getMessage());
+        }
     }
 }

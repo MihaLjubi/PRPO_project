@@ -81,19 +81,18 @@ public class JPAServlet extends HttpServlet {
         upravljanjePolnilnihPostajZrno.ustvariPolnilnoPostajo(test2);
         */
 
-        /*
         Uporabnik userbyid = uporabnikZrno.getById(1);
         Timestamp st = new Timestamp(2021, 5, 5, 12, 30, 0, 0);
-        Timestamp se = new Timestamp(2021, 5, 5, 11, 30, 0, 0);
+        Timestamp se = new Timestamp(2021, 5, 5, 14, 30, 0, 0);
         RezervacijaDTO r = new RezervacijaDTO();
         r.setPolnjenjeZacetek(st);
         r.setPolnjenjeKonec(se);
         r.setUporabnik(userbyid);
-        r.setPolnilnaPostaja(polnilnaPostajaZrno.getById(1));
+        r.setPolnilnaPostaja(polnilnaPostajaZrno.getById(2));
 
         Rezervacija rr = upravljanjePolnilnihPostajZrno.rezervacijaPolnilnePostaje(r);
         System.out.printf("%d\t%s\t%d\t%d", rr.getId_rezervacija(), rr.getPolnjenje_zacetek(), rr.getPolnilnaPostaja().getId_polnilna_postaja(), rr.getUporabnik().getId_uporabnik());
-        */
+
 
 
 
