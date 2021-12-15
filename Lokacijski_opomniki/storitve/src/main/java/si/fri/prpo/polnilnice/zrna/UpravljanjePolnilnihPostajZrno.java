@@ -7,7 +7,10 @@ import si.fri.prpo.polnilnice.entitete.Racun;
 import si.fri.prpo.polnilnice.entitete.Rezervacija;
 import si.fri.prpo.polnilnice.entitete.Uporabnik;
 import si.fri.prpo.polnilnice.interceptor.BeleziKlice;
-
+import si.fri.prpo.polnilnice.DTO.PolnilnaPostajaDTO;
+import si.fri.prpo.polnilnice.DTO.PolnilnicaDTO;
+import si.fri.prpo.polnilnice.DTO.RacunDTO;
+import si.fri.prpo.polnilnice.DTO.RezervacijaDTO;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.enterprise.context.ApplicationScoped;
