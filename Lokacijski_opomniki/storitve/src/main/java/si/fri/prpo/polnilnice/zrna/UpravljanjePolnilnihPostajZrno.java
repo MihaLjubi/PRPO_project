@@ -1,13 +1,11 @@
 package si.fri.prpo.polnilnice.zrna;
 
 import com.kumuluz.ee.configuration.utils.ConfigurationUtil;
-import si.fri.prpo.polnilnice.DTO.PolnilnaPostajaDTO;
-import si.fri.prpo.polnilnice.DTO.PolnilnicaDTO;
-import si.fri.prpo.polnilnice.DTO.RacunDTO;
-import si.fri.prpo.polnilnice.DTO.RezervacijaDTO;
+import si.fri.prpo.polnilnice.DTO.*;
 import si.fri.prpo.polnilnice.entitete.PolnilnaPostaja;
 import si.fri.prpo.polnilnice.entitete.Racun;
 import si.fri.prpo.polnilnice.entitete.Rezervacija;
+import si.fri.prpo.polnilnice.entitete.Uporabnik;
 import si.fri.prpo.polnilnice.interceptor.BeleziKlice;
 
 import javax.annotation.PostConstruct;
@@ -67,6 +65,7 @@ public class UpravljanjePolnilnihPostajZrno {
         posodobiZasedenostPolnilnic(reservation.getPolnilnaPostaja());
 
         Rezervacija r = rezervacijaZrno.createReservation(reservation);
+        pridobiRezervacijeZaUporabnika(r.getUporabnik());
         return r;
     }
 
@@ -109,6 +108,17 @@ public class UpravljanjePolnilnihPostajZrno {
             client.target(baseUrl + "/zasedenost").request(MediaType.APPLICATION_JSON)
                     .post(Entity.json(pol));
         } catch (Exception e) {
+            logger.severe(e.getMessage());
+        }
+    }
+
+    private void pridobiRezervacijeZaUporabnika(Uporabnik uporabnik){
+        try{
+            Integer userId = uporabnik.getId_uporabnik();
+            var user = new userIdDTO(userId);
+            client.target(baseUrl + "/upravljanje").request(MediaType.APPLICATION_JSON).
+                    get(); //TODO, da passas id
+        } catch(Exception e){
             logger.severe(e.getMessage());
         }
     }

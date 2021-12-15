@@ -11,3 +11,5 @@ kumuluzee:
 integration:
   zasedenost:
     base-url: http://localhost:8081/v1
+  upravljanje:
+    base-url: http://localhost:8083/v1
