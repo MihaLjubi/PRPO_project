@@ -32,6 +32,18 @@
             <version>1.5.1</version>
             <scope>compile</scope>
         </dependency>
+        <dependency>
+            <groupId>org.eclipse.jetty</groupId>
+            <artifactId>jetty-client</artifactId>
+            <version>9.4.35.v20201120</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.jetty</groupId>
+            <artifactId>jetty-client</artifactId>
+            <version>9.4.35.v20201120</version>
+            <scope>compile</scope>
+        </dependency>
     </dependencies>
 
     <properties>

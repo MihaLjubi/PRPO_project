@@ -19,6 +19,7 @@ import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.MediaType;
+import java.util.LinkedList;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
@@ -114,13 +115,13 @@ public class UpravljanjePolnilnihPostajZrno {
             logger.severe(e.getMessage());
         }
     }
-
     private void pridobiRezervacijeZaUporabnika(Uporabnik uporabnik){
         try{
             Integer userId = uporabnik.getId_uporabnik();
-            var user = new userIdDTO(userId);
-            client.target(baseUrl + "/upravljanje").request(MediaType.APPLICATION_JSON).
-                    get(); //TODO, da passas id
+            client.target(baseUrl + "/upravljanje/" + userId).request(MediaType.APPLICATION_JSON).
+                    get();
+            System.out.println("klic 2. mikrostoritve uspesen");
+            logger.info("klic 2. mikrostoritve uspesen");
         } catch(Exception e){
             logger.severe(e.getMessage());
         }

@@ -36,7 +36,8 @@ public class UpravljanjeVir {
     }
 
     @GET
-    public Response pridobiRezervacije(int userId){
+    @Path("{id}")
+    public Response pridobiRezervacije(@PathParam("id") Integer userId){
         rezervacije.removeIf(rez -> rez.getUporabnik() != userId);
         Collections.sort(rezervacije);
 
