@@ -11,7 +11,6 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.*;
 import java.util.logging.Logger;
-import java.util.stream.Collectors;
 
 @ApplicationScoped
 @Produces(MediaType.APPLICATION_JSON)
@@ -38,7 +37,7 @@ public class UpravljanjeVir {
     @GET
     @Path("{id}")
     public Response pridobiRezervacije(@PathParam("id") Integer userId){
-        rezervacije.removeIf(rez -> rez.getUporabnik() != userId);
+        rezervacije.removeIf(rez -> !Objects.equals(rez.getUporabnik(), userId));
         Collections.sort(rezervacije);
 
         logger.info("pridobljene rezervacije za upobrabnika z id=" + userId);

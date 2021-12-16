@@ -15,10 +15,12 @@ import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import javax.ws.rs.GET;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 import java.util.LinkedList;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
@@ -70,6 +72,7 @@ public class UpravljanjePolnilnihPostajZrno {
 
         Rezervacija r = rezervacijaZrno.createReservation(reservation);
         pridobiRezervacijeZaUporabnika(r.getUporabnik());
+
         return r;
     }
 
@@ -117,9 +120,9 @@ public class UpravljanjePolnilnihPostajZrno {
     }
     private void pridobiRezervacijeZaUporabnika(Uporabnik uporabnik){
         try{
+            logger.info("test massage");
             Integer userId = uporabnik.getId_uporabnik();
-            client.target(baseUrl + "/upravljanje/" + userId).request(MediaType.APPLICATION_JSON).
-                    get();
+            client.target(baseUrl + "/upravljanje/" + userId).request(MediaType.APPLICATION_JSON).get();
             System.out.println("klic 2. mikrostoritve uspesen");
             logger.info("klic 2. mikrostoritve uspesen");
         } catch(Exception e){
