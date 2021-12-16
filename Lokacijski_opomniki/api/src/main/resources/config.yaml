@@ -18,6 +18,19 @@ kumuluzee:
               "resource": "polnilnice-api",
               "confidential-port": 0
             }'
+  health:
+    logs:
+      enabled: true
+      type: readiness
+      level: FINE
+      period-s: 60
+    checks:
+      disk-space-health-check:
+        threshold: 100000000
+      data-source-health-check:
+        connection-url: jdbc:postgresql://localhost:5432/elektricnePolnilnice
+        username: postgres
+        password: postgres
 integration:
   zasedenost:
     base-url: http://localhost:8081/v1
