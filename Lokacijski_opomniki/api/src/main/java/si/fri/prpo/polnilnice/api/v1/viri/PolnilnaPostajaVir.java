@@ -2,6 +2,7 @@ package si.fri.prpo.polnilnice.api.v1.viri;
 
 import com.kumuluz.ee.cors.annotations.CrossOrigin;
 import com.kumuluz.ee.rest.beans.QueryParameters;
+import com.kumuluz.ee.security.annotations.Secure;
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.headers.Header;
 import org.eclipse.microprofile.openapi.annotations.media.Content;
@@ -16,6 +17,8 @@ import si.fri.prpo.polnilnice.entitete.Uporabnik;
 import si.fri.prpo.polnilnice.zrna.PolnilnaPostajaZrno;
 import si.fri.prpo.polnilnice.zrna.UpravljanjePolnilnihPostajZrno;
 
+import javax.annotation.security.PermitAll;
+import javax.annotation.security.RolesAllowed;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.ws.rs.*;
@@ -29,6 +32,7 @@ import java.util.List;
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 @Path("polnilnepostaje")
+@Secure
 @CrossOrigin(supportedMethods = "GET, POST, PUT, DELETE, HEAD, OPTIONS")
 public class PolnilnaPostajaVir {
     private Logger logger = Logger.getLogger(PolnilnaPostajaVir.class.getName());
@@ -53,6 +57,7 @@ public class PolnilnaPostajaVir {
             @APIResponse(responseCode = "404", description = "Charging stations not found")
     })
     @GET
+    @PermitAll
     public Response getAllChargingStations() {
         QueryParameters query = QueryParameters.query(uriInfo.getRequestUri().getQuery()).build();
         List<PolnilnaPostaja> polnilnepostaje = polnilnaPostajaZrno.getPolnilnePostaje(query);
@@ -92,7 +97,8 @@ public class PolnilnaPostajaVir {
             @APIResponse(responseCode = "405", description = "Validation error")
     })
     @POST
-    public Response addChargingStation(@Parameter(name="id", required = true, allowEmptyValue = false) PolnilnaPostajaDTO polnilnaPostajaDTO) {
+    @RolesAllowed("user")
+    public Response addChargingStation(PolnilnaPostajaDTO polnilnaPostajaDTO) {
         PolnilnaPostaja pp = upravljanjePolnilnihPostajZrno.ustvariPolnilnoPostajo(polnilnaPostajaDTO);
         if(pp != null) {
             return Response.status(Response.Status.OK).entity(pp).build();
@@ -128,6 +134,7 @@ public class PolnilnaPostajaVir {
     })
     @DELETE
     @Path("{id}")
+    @RolesAllowed("user")
     public Response deleteChargingStation(@Parameter(name="id", required = true, allowEmptyValue = false) @PathParam("id") Integer id) {
         boolean result = polnilnaPostajaZrno.deleteChargingStation(id);
         if(result) {

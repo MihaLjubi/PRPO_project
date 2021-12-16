@@ -8,6 +8,16 @@ kumuluzee:
       connection-url: jdbc:postgresql://localhost:5432/elektricnePolnilnice
       username: postgres
       password: postgres
+  security:
+    keycloak:
+      json: '{
+              "realm": "polnilnice-relm",
+              "bearer-only": true,
+              "auth-server-url": "http://localhost:8082/auth/",
+              "ssl-required": "external",
+              "resource": "polnilnice-api",
+              "confidential-port": 0
+            }'
 integration:
   zasedenost:
     base-url: http://localhost:8081/v1
