@@ -25,6 +25,7 @@
         <kumuluzee-openapi-mp.version>1.4.0</kumuluzee-openapi-mp.version>
         <kumuluzee-security.version>1.3.0-SNAPSHOT</kumuluzee-security.version>
         <keycloak.version>5.0.0</keycloak.version>
+        <kumuluzee-health.version>2.4.3</kumuluzee-health.version>
     </properties>
 
     <dependencyManagement>

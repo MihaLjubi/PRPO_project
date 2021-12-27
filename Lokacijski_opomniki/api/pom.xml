@@ -79,6 +79,12 @@
             <version>${keycloak.version}</version>
         </dependency>
 
+        <dependency>
+            <groupId>com.kumuluz.ee.health</groupId>
+            <artifactId>kumuluzee-health</artifactId>
+            <version>${kumuluzee-health.version}</version>
+        </dependency>
+
     </dependencies>
 
     <properties>
