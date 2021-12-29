@@ -88,7 +88,7 @@ public class JPAServlet extends HttpServlet {
         resp.getWriter().print(vremenskaNapoved.toString());
         //Response vremenskaNapoved = upravljanjePolnilnihPostajZrno.getVreme();
         //resp.getWriter().print(String.valueOf(vremenskaNapoved.getEntity()));
-
+        /*
         Uporabnik userbyid = uporabnikZrno.getById(1);
         Timestamp st = new Timestamp(2021, 5, 5, 12, 30, 0, 0);
         Timestamp se = new Timestamp(2021, 5, 5, 14, 30, 0, 0);
@@ -101,7 +101,7 @@ public class JPAServlet extends HttpServlet {
         Rezervacija rr = upravljanjePolnilnihPostajZrno.rezervacijaPolnilnePostaje(r);
         System.out.printf("%d\t%s\t%d\t%d", rr.getId_rezervacija(), rr.getPolnjenje_zacetek(), rr.getPolnilnaPostaja().getId_polnilna_postaja(), rr.getUporabnik().getId_uporabnik());
 
-
+        */
         /* List<PolnilnaPostaja> pps = polnilnaPostajaZrno.getPolnilnePostaje();
         PolnilnaPostaja ppbyid = polnilnaPostajaZrno.getById(3);
         test2.setLokacija("Brzomir");

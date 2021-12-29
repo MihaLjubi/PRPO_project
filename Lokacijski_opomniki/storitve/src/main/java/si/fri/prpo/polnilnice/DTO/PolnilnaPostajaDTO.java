@@ -13,7 +13,7 @@ import java.util.List;
 public class PolnilnaPostajaDTO extends BaseDTO {
 
     private String lokacija;
-    private PolnilnaPostaja.Status status;
+    private Boolean status;
     private Time obratovanje_zacetek;
     private Time obratovanje_konec;
     private Integer cena;
@@ -35,11 +35,11 @@ public class PolnilnaPostajaDTO extends BaseDTO {
         this.lokacija = lokacija;
     }
 
-    public PolnilnaPostaja.Status getStatus() {
+    public Boolean getStatus() {
         return status;
     }
 
-    public void setStatus(PolnilnaPostaja.Status status) {
+    public void setStatus(Boolean status) {
         this.status = status;
     }
 

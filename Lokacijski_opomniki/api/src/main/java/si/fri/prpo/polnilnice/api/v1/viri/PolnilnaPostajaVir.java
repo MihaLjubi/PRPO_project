@@ -33,7 +33,7 @@ import java.util.List;
 @Consumes(MediaType.APPLICATION_JSON)
 @Path("polnilnepostaje")
 @Secure
-@CrossOrigin(supportedMethods = "GET, POST, PUT, DELETE, HEAD, OPTIONS")
+@CrossOrigin(supportedMethods = "GET, POST, PUT, DELETE, HEAD, OPTIONS", allowOrigin ="*")
 public class PolnilnaPostajaVir {
     private Logger logger = Logger.getLogger(PolnilnaPostajaVir.class.getName());
     @Context
