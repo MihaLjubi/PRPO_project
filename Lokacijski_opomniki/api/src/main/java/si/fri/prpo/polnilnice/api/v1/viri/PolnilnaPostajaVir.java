@@ -32,8 +32,7 @@ import java.util.List;
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 @Path("polnilnepostaje")
-@Secure
-@CrossOrigin(supportedMethods = "GET, POST, PUT, DELETE, HEAD, OPTIONS", allowOrigin ="*")
+@CrossOrigin(supportedMethods = "GET, POST, PUT, DELETE, HEAD, OPTIONS")
 public class PolnilnaPostajaVir {
     private Logger logger = Logger.getLogger(PolnilnaPostajaVir.class.getName());
     @Context
@@ -57,7 +56,6 @@ public class PolnilnaPostajaVir {
             @APIResponse(responseCode = "404", description = "Charging stations not found")
     })
     @GET
-    @PermitAll
     public Response getAllChargingStations() {
         QueryParameters query = QueryParameters.query(uriInfo.getRequestUri().getQuery()).build();
         List<PolnilnaPostaja> polnilnepostaje = polnilnaPostajaZrno.getPolnilnePostaje(query);
@@ -97,7 +95,6 @@ public class PolnilnaPostajaVir {
             @APIResponse(responseCode = "405", description = "Validation error")
     })
     @POST
-    @RolesAllowed("user")
     public Response addChargingStation(PolnilnaPostajaDTO polnilnaPostajaDTO) {
         PolnilnaPostaja pp = upravljanjePolnilnihPostajZrno.ustvariPolnilnoPostajo(polnilnaPostajaDTO);
         if(pp != null) {
@@ -134,7 +131,6 @@ public class PolnilnaPostajaVir {
     })
     @DELETE
     @Path("{id}")
-    @RolesAllowed("user")
     public Response deleteChargingStation(@Parameter(name="id", required = true, allowEmptyValue = false) @PathParam("id") Integer id) {
         boolean result = polnilnaPostajaZrno.deleteChargingStation(id);
         if(result) {
