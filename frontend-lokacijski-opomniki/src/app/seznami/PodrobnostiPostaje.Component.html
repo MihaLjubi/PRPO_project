@@ -1,0 +1,12 @@
+<div *ngIf="podrobnosti">
+
+    <h3>{{podrobnosti.id_polnilna_postaja}}</h3>
+
+    <p>{{podrobnosti.lokacija}}</p>
+    <p>{{"Cena najema: " + podrobnosti.cena}}</p>
+    <p>{{"Zasedenost polnilnice: " + podrobnosti.status}}</p>
+    <p>{{podrobnosti.obratovanje_zacetek}}</p>
+    <p>{{podrobnosti.obratovanje_konec}}</p>
+    <br>
+    <button (click)="nazaj()">Nazaj</button>
+</div>

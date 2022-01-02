@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: polnilnice-zasedenost-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: polnilnice-zasedenost
+  template:
+    metadata:
+      labels:
+        app: polnilnice-zasedenost
+    spec:
+      containers:
+        - image: miholini/polnilnice-zasedenost
+          name: polnilnice-zasedenost
+          ports:
+            - containerPort: 8081
+              name: server
+              protocol: TCP
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: polnilnice-zasedenost
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 8081
+      protocol: TCP
+      targetPort: server
+  selector:
+    app: polnilnice-zasedenost

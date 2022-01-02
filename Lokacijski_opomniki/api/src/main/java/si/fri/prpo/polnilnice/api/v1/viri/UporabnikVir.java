@@ -2,6 +2,7 @@ package si.fri.prpo.polnilnice.api.v1.viri;
 
 import com.kumuluz.ee.cors.annotations.CrossOrigin;
 import com.kumuluz.ee.rest.beans.QueryParameters;
+import com.kumuluz.ee.security.annotations.Secure;
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.headers.Header;
 import org.eclipse.microprofile.openapi.annotations.media.Content;
@@ -11,6 +12,8 @@ import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponses;
 import org.jboss.logging.Logger;
 
+import javax.annotation.security.PermitAll;
+import javax.annotation.security.RolesAllowed;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.persistence.Query;
@@ -30,6 +33,7 @@ import java.util.List;
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 @Path("uporabniki")
+@Secure
 @CrossOrigin(supportedMethods = "GET, POST, PUT, DELETE, HEAD, OPTIONS")
 public class UporabnikVir {
 
@@ -53,6 +57,7 @@ public class UporabnikVir {
         @APIResponse(responseCode = "404", description = "Useres not found")
     })
     @GET
+    @PermitAll
     public Response getAllUsers() {
         QueryParameters query = QueryParameters.query(uriInfo.getRequestUri().getQuery()).build();
         List<Uporabnik> users = uporabnikZrno.getUporabniki(query);
@@ -93,6 +98,7 @@ public class UporabnikVir {
             @APIResponse(responseCode = "405", description = "Validation error")
     })
     @POST
+    @RolesAllowed("user")
     public Response addUser(@Parameter(name="id", required = true, allowEmptyValue = false) Uporabnik user) {
         Uporabnik u = uporabnikZrno.createUser(user);
         if(user != null) {
@@ -129,6 +135,7 @@ public class UporabnikVir {
     })
     @DELETE
     @Path("{id}")
+    @RolesAllowed("user")
     public Response deleteUser(@Parameter(name="id", required = true, allowEmptyValue = false) @PathParam("id") Integer id) {
         var result = uporabnikZrno.deleteUser(id);
         if(result) {

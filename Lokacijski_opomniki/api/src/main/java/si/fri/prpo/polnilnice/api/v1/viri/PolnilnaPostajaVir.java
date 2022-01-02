@@ -2,6 +2,7 @@ package si.fri.prpo.polnilnice.api.v1.viri;
 
 import com.kumuluz.ee.cors.annotations.CrossOrigin;
 import com.kumuluz.ee.rest.beans.QueryParameters;
+import com.kumuluz.ee.security.annotations.Secure;
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.headers.Header;
 import org.eclipse.microprofile.openapi.annotations.media.Content;
@@ -16,6 +17,8 @@ import si.fri.prpo.polnilnice.entitete.Uporabnik;
 import si.fri.prpo.polnilnice.zrna.PolnilnaPostajaZrno;
 import si.fri.prpo.polnilnice.zrna.UpravljanjePolnilnihPostajZrno;
 
+import javax.annotation.security.PermitAll;
+import javax.annotation.security.RolesAllowed;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.ws.rs.*;
@@ -92,7 +95,7 @@ public class PolnilnaPostajaVir {
             @APIResponse(responseCode = "405", description = "Validation error")
     })
     @POST
-    public Response addChargingStation(@Parameter(name="id", required = true, allowEmptyValue = false) PolnilnaPostajaDTO polnilnaPostajaDTO) {
+    public Response addChargingStation(PolnilnaPostajaDTO polnilnaPostajaDTO) {
         PolnilnaPostaja pp = upravljanjePolnilnihPostajZrno.ustvariPolnilnoPostajo(polnilnaPostajaDTO);
         if(pp != null) {
             return Response.status(Response.Status.OK).entity(pp).build();

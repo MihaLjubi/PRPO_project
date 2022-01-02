@@ -10,9 +10,11 @@ import org.eclipse.microprofile.openapi.annotations.security.SecurityRequirement
 import org.eclipse.microprofile.openapi.annotations.security.SecurityScheme;
 import org.eclipse.microprofile.openapi.annotations.servers.Server;
 
+import javax.annotation.security.DeclareRoles;
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
 
+@DeclareRoles({"user", "admin"})
 @ApplicationPath("v1")
 @SecurityScheme(securitySchemeName = "openid-connect", type = SecuritySchemeType.OPENIDCONNECT,
         openIdConnectUrl = "http://auth-server-url/.well-known/openid-configuration")

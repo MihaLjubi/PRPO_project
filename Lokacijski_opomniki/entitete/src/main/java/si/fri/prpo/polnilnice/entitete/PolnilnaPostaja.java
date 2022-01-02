@@ -27,7 +27,7 @@ public class PolnilnaPostaja {
 
     private String lokacija;
 
-    private Status status;
+    private Boolean status;
 
     private Time obratovanje_zacetek;
 
@@ -55,11 +55,11 @@ public class PolnilnaPostaja {
         this.lokacija = lokacija;
     }
 
-    public Status getStatus() {
+    public Boolean getStatus() {
         return status;
     }
 
-    public void setStatus(Status status) {
+    public void setStatus(Boolean status) {
         this.status = status;
     }
 

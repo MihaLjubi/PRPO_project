@@ -1,7 +1,11 @@
 package si.fri.prpo.polnilnice.zrna;
 
 import com.kumuluz.ee.configuration.utils.ConfigurationUtil;
-import si.fri.prpo.polnilnice.DTO.*;
+import org.json.JSONArray;
+import si.fri.prpo.polnilnice.DTO.PolnilnaPostajaDTO;
+import si.fri.prpo.polnilnice.DTO.PolnilnicaDTO;
+import si.fri.prpo.polnilnice.DTO.RacunDTO;
+import si.fri.prpo.polnilnice.DTO.RezervacijaDTO;
 import si.fri.prpo.polnilnice.entitete.PolnilnaPostaja;
 import si.fri.prpo.polnilnice.entitete.Racun;
 import si.fri.prpo.polnilnice.entitete.Rezervacija;
@@ -15,16 +19,22 @@ import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+
+import javax.json.JsonObject;
 import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.LinkedList;
+
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
+import org.json.JSONObject;
 
 @ApplicationScoped
 public class UpravljanjePolnilnihPostajZrno {
@@ -128,5 +138,43 @@ public class UpravljanjePolnilnihPostajZrno {
         } catch(Exception e){
             logger.severe(e.getMessage());
         }
+    @BeleziKlice
+    public Response getVreme(){//pober vn podatke iz responsa, dej te podatke v dto za vremensko pa vrn servletu
+        try{
+            var jsonVreme = client.target("https://api.openweathermap.org/data/2.5/onecall?lat=46.05&lon=14.50&exclude=current,minutely,hourly&appid=d714c3655511f413b58f5e21ebaf3c56&units=metric")
+                    .request(MediaType.APPLICATION_JSON)
+                    .get();
+
+            if(jsonVreme.getStatus() == 200){
+                String rez = jsonVreme.readEntity(String.class);
+                return Response.status(Response.Status.OK).entity(rez).build();
+            }
+        } catch(WebApplicationException e){
+            logger.severe(e.getMessage());
+        }
+        return null;
+    }
+    public StringBuffer parseVreme(){
+        StringBuffer sb = new StringBuffer();
+        Response unparsed = getVreme();
+
+        String jsonString = String.valueOf(unparsed.getEntity());
+        JSONObject obj = new JSONObject(jsonString);
+
+        JSONArray daily = obj.getJSONArray("daily");//daily[i] je vse JSON OBJECT o enem dnevu
+
+        for(int i = 0; i < daily.length(); i++){
+            JSONObject today = daily.getJSONObject(i);
+            JSONObject temperature = today.getJSONObject("temp");
+            JSONArray weatherarr = today.getJSONArray("weather");
+            JSONObject weather = weatherarr.getJSONObject(0);
+
+            Integer dailyTemp = temperature.getInt("day");
+            String fcast = weather.getString("main");
+            //Double padavine = today.getDouble("rain");
+
+            sb.append("Temperatura: " + dailyTemp.toString() + " Vreme: " + fcast  + "\n");
+        }
+        return sb;
     }
 }

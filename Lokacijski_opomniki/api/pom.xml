@@ -62,6 +62,29 @@
             <version>${kumuluzee-openapi-mp.version}</version>
         </dependency>
 
+        <dependency>
+            <groupId>com.kumuluz.ee</groupId>
+            <artifactId>kumuluzee-cdi-weld</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.kumuluz.ee.security</groupId>
+            <artifactId>kumuluzee-security-keycloak</artifactId>
+            <version>1.2.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.keycloak</groupId>
+            <artifactId>keycloak-jetty94-adapter</artifactId>
+            <version>${keycloak.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.kumuluz.ee.health</groupId>
+            <artifactId>kumuluzee-health</artifactId>
+            <version>${kumuluzee-health.version}</version>
+        </dependency>
+
     </dependencies>
 
     <properties>
@@ -92,6 +115,19 @@
                     <execution>
                         <goals>
                             <goal>generate</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>com.kumuluz.ee</groupId>
+                <artifactId>kumuluzee-maven-plugin</artifactId>
+                <version>${kumuluzee.version}</version>
+                <executions>
+                    <execution>
+                        <id>package</id>
+                        <goals>
+                            <goal>repackage</goal>
                         </goals>
                     </execution>
                 </executions>
