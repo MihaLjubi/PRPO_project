@@ -19,6 +19,8 @@ buildNumber.properties
 Servlet/.idea/
 Lokacijski_opomniki/.idea/
 Polnilnice_zasedenost/.idea/
+UpravljanjeRezervacij/.idea/
+/.idea/
 # if you remove the above rule, at least ignore the following:
 
 # User-specific stuff:

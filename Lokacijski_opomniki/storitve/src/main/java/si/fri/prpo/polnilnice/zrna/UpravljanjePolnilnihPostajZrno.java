@@ -9,12 +9,17 @@ import si.fri.prpo.polnilnice.DTO.RezervacijaDTO;
 import si.fri.prpo.polnilnice.entitete.PolnilnaPostaja;
 import si.fri.prpo.polnilnice.entitete.Racun;
 import si.fri.prpo.polnilnice.entitete.Rezervacija;
+import si.fri.prpo.polnilnice.entitete.Uporabnik;
 import si.fri.prpo.polnilnice.interceptor.BeleziKlice;
-
+import si.fri.prpo.polnilnice.DTO.PolnilnaPostajaDTO;
+import si.fri.prpo.polnilnice.DTO.PolnilnicaDTO;
+import si.fri.prpo.polnilnice.DTO.RacunDTO;
+import si.fri.prpo.polnilnice.DTO.RezervacijaDTO;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+
 import javax.json.JsonObject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -24,6 +29,8 @@ import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.LinkedList;
+
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
@@ -74,6 +81,8 @@ public class UpravljanjePolnilnihPostajZrno {
         posodobiZasedenostPolnilnic(reservation.getPolnilnaPostaja());
 
         Rezervacija r = rezervacijaZrno.createReservation(reservation);
+        pridobiRezervacijeZaUporabnika(r.getUporabnik());
+
         return r;
     }
 
@@ -119,6 +128,18 @@ public class UpravljanjePolnilnihPostajZrno {
             logger.severe(e.getMessage());
         }
     }
+    private void pridobiRezervacijeZaUporabnika(Uporabnik uporabnik) {
+        try {
+            logger.info("test massage");
+            Integer userId = uporabnik.getId_uporabnik();
+            client.target(baseUrl + "/upravljanje/" + userId).request(MediaType.APPLICATION_JSON).get();
+            System.out.println("klic 2. mikrostoritve uspesen");
+            logger.info("klic 2. mikrostoritve uspesen");
+        } catch (Exception e) {
+            logger.severe(e.getMessage());
+        }
+    }
+
     @BeleziKlice
     public Response getVreme(){//pober vn podatke iz responsa, dej te podatke v dto za vremensko pa vrn servletu
         try{
@@ -135,6 +156,7 @@ public class UpravljanjePolnilnihPostajZrno {
         }
         return null;
     }
+    
     public StringBuffer parseVreme(){
         StringBuffer sb = new StringBuffer();
         Response unparsed = getVreme();
