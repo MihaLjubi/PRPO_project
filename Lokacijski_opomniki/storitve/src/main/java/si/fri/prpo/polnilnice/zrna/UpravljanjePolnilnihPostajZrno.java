@@ -128,16 +128,18 @@ public class UpravljanjePolnilnihPostajZrno {
             logger.severe(e.getMessage());
         }
     }
-    private void pridobiRezervacijeZaUporabnika(Uporabnik uporabnik){
-        try{
+    private void pridobiRezervacijeZaUporabnika(Uporabnik uporabnik) {
+        try {
             logger.info("test massage");
             Integer userId = uporabnik.getId_uporabnik();
             client.target(baseUrl + "/upravljanje/" + userId).request(MediaType.APPLICATION_JSON).get();
             System.out.println("klic 2. mikrostoritve uspesen");
             logger.info("klic 2. mikrostoritve uspesen");
-        } catch(Exception e){
+        } catch (Exception e) {
             logger.severe(e.getMessage());
         }
+    }
+
     @BeleziKlice
     public Response getVreme(){//pober vn podatke iz responsa, dej te podatke v dto za vremensko pa vrn servletu
         try{
@@ -154,6 +156,7 @@ public class UpravljanjePolnilnihPostajZrno {
         }
         return null;
     }
+    
     public StringBuffer parseVreme(){
         StringBuffer sb = new StringBuffer();
         Response unparsed = getVreme();
